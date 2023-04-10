@@ -7,11 +7,11 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\User\.android\avd\Nexus_S.avd" />
+            <value value="C:\Users\User\.android\avd\hapegeming.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2023-04-09T12:18:15.189964800Z" />
+    <timeTargetWasSelectedWithDropDown value="2023-04-10T15:38:35.369714800Z" />
   </component>
 </project>

@@ -4,58 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.LoginActivity">
+    tools:context=".ui.activity.WelcomeActivity">
 
     <ImageView
-        android:id="@+id/iv_login"
+        android:id="@+id/iv_communication"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="96dp"
-        android:contentDescription="@string/login_coDes"
-        android:src="@drawable/login" />
+        android:contentDescription="@string/logo_coDesc"
+        android:src="@drawable/communication" />
 
     <TextView
-        android:id="@+id/tv_login"
+        android:id="@+id/tv_dicory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/iv_login"
+        android:layout_below="@id/iv_communication"
         android:layout_centerInParent="true"
         android:fontFamily="sans-serif-black"
-        android:text="@string/login_greet"
+        android:text="@string/dicory_greet"
         android:textColor="@color/black"
-        android:textSize="28sp"
+        android:textSize="32sp"
         android:textStyle="bold" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tf_login"
-        android:layout_width="280dp"
+    <TextView
+        android:id="@+id/tv_welcome_desc"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_login"
+        android:layout_below="@id/tv_dicory"
         android:layout_centerInParent="true"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/black"
-        android:hint="@string/email" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tf_password"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tf_login"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/black"
-        android:hint="@string/password" />
+        android:text="@string/welcome_desc"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="13sp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_signIn"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tf_password"
+        android:layout_below="@id/tv_welcome_desc"
         android:layout_centerInParent="true"
         android:layout_marginTop="24dp"
         android:backgroundTint="@color/teal_700"
         android:text="@string/sign_in"
+        android:textStyle="bold"
+        app:cornerRadius="30dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_register"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_signIn"
+        android:layout_centerInParent="true"
+        android:backgroundTint="@color/yellowCusOne"
+        android:text="@string/register"
+        android:textColor="@color/black"
         android:textStyle="bold"
         app:cornerRadius="30dp" />
 

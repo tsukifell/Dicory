@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Dicory</string>
+    <string name="register">Register</string>
+    <string name="sign_in">Sign In</string>
+    <string name="welcome_desc">Connect with others from Dicoding platform and post \nyour stories!</string>
+    <string name="dicory_greet">Welcome to Dicory!</string>
+    <string name="logo_coDesc">Logo Communication</string>
+    <string name="lang">Language</string>
+    <string name="login_coDes">Logo Login</string>
+    <string name="login_greet">Login into Dicory!</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="make_account">Let\'s make a new Account!</string>
+    <string name="username">Username</string>
 </resources>

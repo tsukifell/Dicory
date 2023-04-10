@@ -4,34 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.LoginActivity">
+    tools:context=".ui.activity.RegisterActivity">
 
     <ImageView
-        android:id="@+id/iv_login"
+        android:id="@+id/iv_register"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="96dp"
-        android:contentDescription="@string/login_coDes"
-        android:src="@drawable/login" />
+        android:contentDescription="@string/register"
+        android:src="@drawable/register" />
 
     <TextView
-        android:id="@+id/tv_login"
+        android:id="@+id/tv_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/iv_login"
+        android:layout_below="@id/iv_register"
         android:layout_centerInParent="true"
         android:fontFamily="sans-serif-black"
-        android:text="@string/login_greet"
+        android:text="@string/make_account"
         android:textColor="@color/black"
         android:textSize="28sp"
         android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/tf_username"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_register"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/black"
+        android:hint="@string/username" />
+
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/tf_login"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_login"
+        android:layout_below="@id/tf_username"
         android:layout_centerInParent="true"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/black"
@@ -48,14 +58,14 @@
         android:hint="@string/password" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_signIn"
+        android:id="@+id/btn_register"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/tf_password"
         android:layout_centerInParent="true"
         android:layout_marginTop="24dp"
         android:backgroundTint="@color/teal_700"
-        android:text="@string/sign_in"
+        android:text="@string/register"
         android:textStyle="bold"
         app:cornerRadius="30dp" />
 
