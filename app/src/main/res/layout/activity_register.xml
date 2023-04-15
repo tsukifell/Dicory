@@ -27,6 +27,14 @@
         android:textSize="28sp"
         android:textStyle="bold" />
 
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_register"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/tf_username"
         android:layout_width="280dp"

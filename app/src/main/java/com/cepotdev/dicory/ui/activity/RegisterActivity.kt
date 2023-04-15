@@ -3,9 +3,12 @@ package com.cepotdev.dicory.ui.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.cepotdev.dicory.databinding.ActivityRegisterBinding
-import com.cepotdev.dicory.logic.model.UserInfo
+import com.cepotdev.dicory.logic.model.UserRequest
 import com.cepotdev.dicory.viewmodel.RegisterViewModel
 
 class RegisterActivity : AppCompatActivity() {
@@ -19,15 +22,38 @@ class RegisterActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        registerViewModel.isLoading.observe(this){
+            showLoading(it)
+        }
+
+        registerViewModel.userResponse.observe(this) { userResponse ->
+            Log.d("Readme", "before if: " + userResponse.error.toString())
+            if (userResponse.error) {
+                Toast.makeText(this@RegisterActivity, "Email udah kepake!!", Toast.LENGTH_LONG).show()
+            } else {
+                val i = Intent(this, LoginActivity::class.java)
+                startActivity(i)
+            }
+            Log.d("Readme", userResponse.message.toString())
+        }
+
         binding.btnRegister.setOnClickListener {
-            val userData = UserInfo(
+            val userData = UserRequest(
                 email = binding.tfLogin.text.toString(),
                 name = binding.tfUsername.text.toString(),
                 password = binding.tfPassword.text.toString()
             )
+
             registerViewModel.userRegister(userData)
-            val i = Intent(this@RegisterActivity, LoginActivity::class.java)
-            startActivity(i)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        registerViewModel.userResponse.removeObservers(this)
+    }
+
+    private fun showLoading(isLoading: Boolean){
+        binding.pbLoading.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }
