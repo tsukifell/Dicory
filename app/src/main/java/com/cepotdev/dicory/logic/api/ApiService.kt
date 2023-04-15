@@ -15,4 +15,6 @@ interface ApiService {
 
     @POST("register")
     fun userRegister(@Body userData: UserRequest): Call<UserResponse>
+
+    //Add getAllStories endpoint with token authorization!
 }
