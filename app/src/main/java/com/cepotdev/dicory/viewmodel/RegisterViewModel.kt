@@ -31,7 +31,9 @@ class RegisterViewModel : ViewModel() {
             ) {
                 _isLoading.value = true
                 if(response.isSuccessful && response.body() != null) {
-                    _userResponse.value = response.body()
+                    _userResponse.postValue(response.body())
+                } else {
+                    _userResponse.postValue(UserResponse(error = true, message = "Failed to register user"))
                 }
                 _isLoading.value = false
             }
