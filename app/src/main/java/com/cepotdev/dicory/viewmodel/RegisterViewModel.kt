@@ -29,7 +29,7 @@ class RegisterViewModel : ViewModel() {
                 call: Call<UserResponse>,
                 response: Response<UserResponse>
             ) {
-                _isLoading.value=false
+                _isLoading.value = false
                 if (response.isSuccessful && response.body() != null) {
                     _userResponse.postValue(response.body())
                 } else {

@@ -29,7 +29,7 @@ class RegisterActivity : AppCompatActivity() {
         registerViewModel.userResponse.observe(this) { userResponse ->
             Log.d("Readme", "before if: " + userResponse.error.toString())
             if (userResponse.error) {
-                Toast.makeText(this@RegisterActivity, "Email udah kepake!!", Toast.LENGTH_LONG)
+                Toast.makeText(this@RegisterActivity, "Email telah terpakai!", Toast.LENGTH_LONG)
                     .show()
             } else {
                 val i = Intent(this, LoginActivity::class.java)
