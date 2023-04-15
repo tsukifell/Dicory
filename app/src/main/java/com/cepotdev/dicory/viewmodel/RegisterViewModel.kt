@@ -29,13 +29,17 @@ class RegisterViewModel : ViewModel() {
                 call: Call<UserResponse>,
                 response: Response<UserResponse>
             ) {
-                _isLoading.value = true
-                if(response.isSuccessful && response.body() != null) {
+                _isLoading.value=false
+                if (response.isSuccessful && response.body() != null) {
                     _userResponse.postValue(response.body())
                 } else {
-                    _userResponse.postValue(UserResponse(error = true, message = "Failed to register user"))
+                    _userResponse.postValue(
+                        UserResponse(
+                            error = true,
+                            message = "Failed to register user"
+                        )
+                    )
                 }
-                _isLoading.value = false
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {

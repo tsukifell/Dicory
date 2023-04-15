@@ -22,14 +22,15 @@ class RegisterActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        registerViewModel.isLoading.observe(this){
+        registerViewModel.isLoading.observe(this) {
             showLoading(it)
         }
 
         registerViewModel.userResponse.observe(this) { userResponse ->
             Log.d("Readme", "before if: " + userResponse.error.toString())
             if (userResponse.error) {
-                Toast.makeText(this@RegisterActivity, "Email udah kepake!!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@RegisterActivity, "Email udah kepake!!", Toast.LENGTH_LONG)
+                    .show()
             } else {
                 val i = Intent(this, LoginActivity::class.java)
                 startActivity(i)
@@ -45,6 +46,10 @@ class RegisterActivity : AppCompatActivity() {
             )
 
             registerViewModel.userRegister(userData)
+
+            registerViewModel.isLoading.observe(this){
+                showLoading(it)
+            }
         }
     }
 
@@ -53,7 +58,7 @@ class RegisterActivity : AppCompatActivity() {
         registerViewModel.userResponse.removeObservers(this)
     }
 
-    private fun showLoading(isLoading: Boolean){
+    private fun showLoading(isLoading: Boolean) {
         binding.pbLoading.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }
