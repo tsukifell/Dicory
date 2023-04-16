@@ -20,5 +20,5 @@ interface ApiService {
     fun getAllStories(@Header("Authorization") token: String): Call<StoriesResponse>
 
     @GET("stories/{id}")
-    fun getDetailStories(@Header("Authorization") token: String, @Path("id") id: String): Call<Story>
+    fun getDetailStories(@Header("Authorization") token: String, @Path("id") id: String): Call<DetailStoriesResponse>
 }
