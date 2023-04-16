@@ -32,7 +32,7 @@ class LoginViewModel : ViewModel() {
                     _loginResponse.postValue(
                         LoginResponse(
                             error = true,
-                            message = "The email or password might be wrong!"
+                            message = "Check your email or password!"
                         )
                     )
                 }
