@@ -37,7 +37,6 @@ class LoginActivity : AppCompatActivity() {
                 sessionManager.saveAuthToken(loginResponse.loginResult?.token.toString())
                 val i = Intent(this, MainActivity::class.java)
                 startActivity(i)
-                Toast.makeText(this, loginResponse.loginResult?.token, Toast.LENGTH_LONG).show()
             }
             Log.d("Readme", loginResponse.message.toString())
         }
