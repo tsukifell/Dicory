@@ -5,8 +5,9 @@
 <h2> Update :notebook: </h2>
 > 15 April 2023 (Fetching stories data from API)
 <br>
-> Coming Soon (Get detailed stories and Posting stories) :no_entry:
+> Coming Soon (Posting stories) :no_entry:
 
 <h3> Current Features :clipboard: </h3>
 > Login, Register (Currently support 6'1" smartphone) <br>
-> Fetching stories from the API
+> Fetching stories from the API <br>
+> Fetching detailed stories from the API
