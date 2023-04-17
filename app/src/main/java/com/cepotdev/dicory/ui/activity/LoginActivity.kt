@@ -5,11 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.cepotdev.dicory.databinding.ActivityLoginBinding
 import com.cepotdev.dicory.logic.helper.SessionManager
 import com.cepotdev.dicory.logic.model.LoginRequest
+import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
 import com.cepotdev.dicory.ui.viewmodel.LoginViewModel
 import com.cepotdev.dicory.ui.viewmodel.ViewModelFactory
 
@@ -26,9 +26,9 @@ class LoginActivity : AppCompatActivity() {
         sessionManager = SessionManager(this)
 
         val viewModelFactory = ViewModelFactory(this.applicationContext)
-        val loginViewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
+        val authViewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
 
-        loginViewModel.loginResponse.observe(this) { loginResponse ->
+        authViewModel.loginResponse.observe(this) { loginResponse ->
             Log.d("Readme", "before if: " + loginResponse.error.toString())
             if (loginResponse.error) {
                 Toast.makeText(
@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
                 password = binding.tfPassword.text.toString()
             )
 
-            loginViewModel.userLogin(loginRequest)
+            authViewModel.userLogin(loginRequest)
         }
     }
 }

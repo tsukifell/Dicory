@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.cepotdev.dicory.databinding.ActivityDetailBinding
 import com.cepotdev.dicory.logic.model.DetailStoriesResponse
+import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
 import com.cepotdev.dicory.ui.viewmodel.MainViewModel
 import com.cepotdev.dicory.ui.viewmodel.ViewModelFactory
 
@@ -21,13 +22,13 @@ class DetailActivity : AppCompatActivity() {
         val keyStories = intent.getStringExtra("key_stories")
 
         val viewModelFactory = ViewModelFactory(this.applicationContext)
-        val mainViewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+        val authViewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
 
         if (keyStories != null) {
-            mainViewModel.getDetailStory(keyStories)
+            authViewModel.getDetailStory(keyStories)
         }
 
-        mainViewModel.story.observe(this) {
+        authViewModel.story.observe(this) {
             setDetail(it)
         }
     }

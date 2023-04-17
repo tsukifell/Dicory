@@ -6,11 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.cepotdev.dicory.databinding.ActivityRegisterBinding
 import com.cepotdev.dicory.logic.model.UserRequest
-import com.cepotdev.dicory.ui.viewmodel.LoginViewModel
+import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
 import com.cepotdev.dicory.ui.viewmodel.RegisterViewModel
 import com.cepotdev.dicory.ui.viewmodel.ViewModelFactory
 
@@ -25,14 +24,14 @@ class RegisterActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         val viewModelFactory = ViewModelFactory(this.applicationContext)
-        val registerViewModel =
-            ViewModelProvider(this, viewModelFactory)[RegisterViewModel::class.java]
+        val authViewModel =
+            ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
 
-        registerViewModel.isLoading.observe(this) {
+        authViewModel.isLoading.observe(this) {
             showLoading(it)
         }
 
-        registerViewModel.userResponse.observe(this) { userResponse ->
+        authViewModel.userResponse.observe(this) { userResponse ->
             Log.d("Readme", "before if: " + userResponse.error.toString())
             if (userResponse.error) {
                 Toast.makeText(this@RegisterActivity, "Email telah terpakai!", Toast.LENGTH_LONG)
@@ -41,7 +40,7 @@ class RegisterActivity : AppCompatActivity() {
                 val i = Intent(this, LoginActivity::class.java)
                 startActivity(i)
             }
-            Log.d("Readme", userResponse.message.toString())
+            Log.d("Readme", userResponse.message)
         }
 
         binding.btnRegister.setOnClickListener {
@@ -51,9 +50,9 @@ class RegisterActivity : AppCompatActivity() {
                 password = binding.tfPassword.text.toString()
             )
 
-            registerViewModel.userRegister(userData)
+            authViewModel.userRegister(userData)
 
-            registerViewModel.isLoading.observe(this) {
+            authViewModel.isLoading.observe(this) {
                 showLoading(it)
             }
         }
