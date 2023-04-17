@@ -6,14 +6,15 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.cepotdev.dicory.databinding.ActivityLoginBinding
 import com.cepotdev.dicory.logic.helper.SessionManager
 import com.cepotdev.dicory.logic.model.LoginRequest
-import com.cepotdev.dicory.viewmodel.LoginViewModel
+import com.cepotdev.dicory.ui.viewmodel.LoginViewModel
+import com.cepotdev.dicory.ui.viewmodel.ViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private val loginViewModel by viewModels<LoginViewModel>()
     private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +24,9 @@ class LoginActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
         sessionManager = SessionManager(this)
+
+        val viewModelFactory = ViewModelFactory(this.applicationContext)
+        val loginViewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
 
         loginViewModel.loginResponse.observe(this) { loginResponse ->
             Log.d("Readme", "before if: " + loginResponse.error.toString())
@@ -34,7 +38,6 @@ class LoginActivity : AppCompatActivity() {
                 )
                     .show()
             } else {
-                sessionManager.saveAuthToken(loginResponse.loginResult?.token.toString())
                 val i = Intent(this, MainActivity::class.java)
                 startActivity(i)
             }

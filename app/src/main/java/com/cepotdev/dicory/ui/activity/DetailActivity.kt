@@ -3,10 +3,12 @@ package com.cepotdev.dicory.ui.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.cepotdev.dicory.databinding.ActivityDetailBinding
 import com.cepotdev.dicory.logic.model.DetailStoriesResponse
-import com.cepotdev.dicory.viewmodel.MainViewModel
+import com.cepotdev.dicory.ui.viewmodel.MainViewModel
+import com.cepotdev.dicory.ui.viewmodel.ViewModelFactory
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
@@ -17,7 +19,9 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val keyStories = intent.getStringExtra("key_stories")
-        val mainViewModel = MainViewModel(context = applicationContext)
+
+        val viewModelFactory = ViewModelFactory(this.applicationContext)
+        val mainViewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
 
         if (keyStories != null) {
             mainViewModel.getDetailStory(keyStories)

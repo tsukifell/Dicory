@@ -1,25 +1,28 @@
 package com.cepotdev.dicory.logic.api
 
-import okhttp3.Interceptor
+import android.content.Context
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
-    companion object{
-        fun getApiService(): ApiService{
-            val loggingInterceptor =
-                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-            val client = OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build()
+    private lateinit var apiService: ApiService
+
+    fun getApiService(context: Context): ApiService {
+        if (!::apiService.isInitialized) {
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://story-api.dicoding.dev/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
+                .client(okHttpClient(context))
                 .build()
-            return retrofit.create(ApiService::class.java)
+            apiService = retrofit.create(ApiService::class.java)
         }
+        return apiService
+    }
+
+    private fun okHttpClient(context: Context): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(AuthInterceptor(context))
+            .build()
     }
 }

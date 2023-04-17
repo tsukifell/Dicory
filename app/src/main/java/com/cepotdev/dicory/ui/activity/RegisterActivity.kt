@@ -7,13 +7,15 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.cepotdev.dicory.databinding.ActivityRegisterBinding
 import com.cepotdev.dicory.logic.model.UserRequest
-import com.cepotdev.dicory.viewmodel.RegisterViewModel
+import com.cepotdev.dicory.ui.viewmodel.LoginViewModel
+import com.cepotdev.dicory.ui.viewmodel.RegisterViewModel
+import com.cepotdev.dicory.ui.viewmodel.ViewModelFactory
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
-    private val registerViewModel by viewModels<RegisterViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +23,10 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
+
+        val viewModelFactory = ViewModelFactory(this.applicationContext)
+        val registerViewModel =
+            ViewModelProvider(this, viewModelFactory)[RegisterViewModel::class.java]
 
         registerViewModel.isLoading.observe(this) {
             showLoading(it)
@@ -47,15 +53,10 @@ class RegisterActivity : AppCompatActivity() {
 
             registerViewModel.userRegister(userData)
 
-            registerViewModel.isLoading.observe(this){
+            registerViewModel.isLoading.observe(this) {
                 showLoading(it)
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        registerViewModel.userResponse.removeObservers(this)
     }
 
     private fun showLoading(isLoading: Boolean) {

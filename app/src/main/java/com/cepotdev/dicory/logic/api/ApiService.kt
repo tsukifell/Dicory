@@ -17,8 +17,8 @@ interface ApiService {
     fun userRegister(@Body userData: UserRequest): Call<UserResponse>
 
     @GET("stories")
-    fun getAllStories(@Header("Authorization") token: String): Call<StoriesResponse>
+    fun getAllStories(): Call<StoriesResponse>
 
     @GET("stories/{id}")
-    fun getDetailStories(@Header("Authorization") token: String, @Path("id") id: String): Call<DetailStoriesResponse>
+    fun getDetailStories(@Path("id") id: String): Call<DetailStoriesResponse>
 }
