@@ -1,5 +1,6 @@
 package com.cepotdev.dicory.ui.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -9,7 +10,6 @@ import com.cepotdev.dicory.databinding.ActivityMainBinding
 import com.cepotdev.dicory.logic.model.ListStoryItem
 import com.cepotdev.dicory.ui.adapter.StoriesAdapter
 import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
-import com.cepotdev.dicory.ui.viewmodel.MainViewModel
 import com.cepotdev.dicory.ui.viewmodel.ViewModelFactory
 
 class MainActivity : AppCompatActivity() {
@@ -28,8 +28,19 @@ class MainActivity : AppCompatActivity() {
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvStories.addItemDecoration(itemDecoration)
 
+        if(intent.getBooleanExtra("upload_success", false)){
+            authViewModel.storyItem.observe(this){
+                showListAdapter(it)
+            }
+        }
+
         authViewModel.storyItem.observe(this) {
             showListAdapter(it)
+        }
+
+        binding.fabAdd.setOnClickListener{
+            val i = Intent(this, PostActivity::class.java)
+            startActivity(i)
         }
 
     }

@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel
 import com.cepotdev.dicory.logic.api.ApiConfig
 import com.cepotdev.dicory.logic.helper.SessionManager
 import com.cepotdev.dicory.logic.model.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,9 +27,11 @@ class AuthViewModel(private val context: Context) : ViewModel() {
     private val _userResponse = MutableLiveData<UserResponse>()
     val userResponse: LiveData<UserResponse> = _userResponse
 
+    private val _postingResponse = MutableLiveData<PostingStoriesResponse>()
+    val postingResponse: LiveData<PostingStoriesResponse> = _postingResponse
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
-
 
     private val apiConfig = ApiConfig()
 
@@ -139,6 +143,24 @@ class AuthViewModel(private val context: Context) : ViewModel() {
                     Log.e(TAG, "onFailure: ${t.message}")
                 }
 
+            })
+    }
+
+    fun postStories(imageFile: MultipartBody.Part, description: RequestBody ) {
+        apiConfig.getApiService(context).postStories(imageFile, description)
+            .enqueue(object : Callback<PostingStoriesResponse>{
+                override fun onResponse(
+                    call: Call<PostingStoriesResponse>,
+                    response: Response<PostingStoriesResponse>
+                ) {
+                    if(response.isSuccessful && response.body() != null){
+                        _postingResponse.postValue(response.body())
+                    }
+                }
+
+                override fun onFailure(call: Call<PostingStoriesResponse>, t: Throwable) {
+                    Log.e(TAG, "onFailure: ${t.message}")
+                }
             })
     }
 }

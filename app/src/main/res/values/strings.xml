@@ -15,4 +15,12 @@
     <string name="account_username">Account Username</string>
     <string name="account_description">Description of the comment</string>
     <string name="content_description">Stories Photo</string>
+    <string name="upload_your_story">Upload your Story!</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="hint_description">Description</string>
+    <string name="upload">Upload</string>
+    <string name="image_placeholder">Image Placeholder</string>
+    <string name="shutter">canera_shutter</string>
+    <string name="switch_camera">switch_camera</string>
 </resources>

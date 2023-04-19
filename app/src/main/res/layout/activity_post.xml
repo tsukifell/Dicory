@@ -1,9 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="6dp"
     tools:context=".ui.activity.PostActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_upload_stories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/upload_your_story"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/iv_placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="350dp"
+            android:layout_below="@id/tv_upload_stories"
+            android:contentDescription="@string/image_placeholder"
+            android:src="@drawable/image_placeholder" />
+
+        <LinearLayout
+            android:id="@+id/liner_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_placeholder"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:gravity="center">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_camera"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/teal_700"
+                android:text="@string/camera"
+                android:textStyle="bold"
+                app:cornerRadius="10dp" />
+
+            <Space
+                android:layout_width="16dp"
+                android:layout_height="match_parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_gallery"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/teal_700"
+                android:text="@string/gallery"
+                android:textStyle="bold"
+                app:cornerRadius="10dp" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_desc"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/liner_btn"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:hint="@string/hint_description">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:lines="6" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_upload"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_desc"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/teal_700"
+            android:text="@string/upload" />
+
+    </RelativeLayout>
+</ScrollView>
