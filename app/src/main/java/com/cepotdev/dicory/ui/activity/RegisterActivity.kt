@@ -7,10 +7,11 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ActivityRegisterBinding
+import com.cepotdev.dicory.logic.helper.emailValidation
 import com.cepotdev.dicory.logic.model.UserRequest
 import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
-import com.cepotdev.dicory.ui.viewmodel.RegisterViewModel
 import com.cepotdev.dicory.ui.viewmodel.ViewModelFactory
 
 class RegisterActivity : AppCompatActivity() {
@@ -34,23 +35,34 @@ class RegisterActivity : AppCompatActivity() {
         authViewModel.userResponse.observe(this) { userResponse ->
             Log.d("Readme", "before if: " + userResponse.error.toString())
             if (userResponse.error) {
-                Toast.makeText(this@RegisterActivity, "Email telah terpakai!", Toast.LENGTH_LONG)
+                Toast.makeText(
+                    this@RegisterActivity,
+                    getString(R.string.email_used),
+                    Toast.LENGTH_LONG
+                )
                     .show()
             } else {
                 val i = Intent(this, LoginActivity::class.java)
+                Toast.makeText(this, getString(R.string.ok_login), Toast.LENGTH_SHORT).show()
                 startActivity(i)
             }
             Log.d("Readme", userResponse.message)
         }
 
         binding.btnRegister.setOnClickListener {
-            val userData = UserRequest(
-                email = binding.tfLogin.text.toString(),
-                name = binding.tfUsername.text.toString(),
-                password = binding.tfPassword.text.toString()
-            )
+            val email = binding.tfRegisterEmail.text.toString()
 
-            authViewModel.userRegister(userData)
+            if (emailValidation(email)) {
+                val userData = UserRequest(
+                    email = binding.tfRegisterEmail.text.toString(),
+                    name = binding.tfRegisterName.text.toString(),
+                    password = binding.etRegisterPassword.text.toString()
+                )
+
+                authViewModel.userRegister(userData)
+            } else {
+                binding.tfRegisterEmail.error = getString(R.string.invalid_email)
+            }
 
             authViewModel.isLoading.observe(this) {
                 showLoading(it)

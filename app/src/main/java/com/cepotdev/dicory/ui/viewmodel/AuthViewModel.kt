@@ -52,7 +52,6 @@ class AuthViewModel(private val context: Context) : ViewModel() {
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         _loginResponse.postValue(response.body())
-                        // Save the user token in session manager
                         response.body()?.loginResult?.token?.let {
                             SessionManager(context).saveAuthToken(it)
                         }
@@ -73,7 +72,7 @@ class AuthViewModel(private val context: Context) : ViewModel() {
             })
     }
 
-    fun showStories() {
+    private fun showStories() {
         apiConfig.getApiService(context).getAllStories()
             .enqueue(object : Callback<StoriesResponse> {
                 override fun onResponse(

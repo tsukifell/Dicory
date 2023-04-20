@@ -23,4 +23,9 @@
     <string name="image_placeholder">Image Placeholder</string>
     <string name="shutter">canera_shutter</string>
     <string name="switch_camera">switch_camera</string>
+    <string name="password_err">Password should be 8 characters or more!</string>
+    <string name="check_your_input">The email or password that you inputted is wrong!</string>
+    <string name="invalid_email">Invalid email address!</string>
+    <string name="email_used">Email is already used!</string>
+    <string name="ok_login">Please login with your email and password!</string>
 </resources>

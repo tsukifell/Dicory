@@ -6,16 +6,15 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ActivityLoginBinding
-import com.cepotdev.dicory.logic.helper.SessionManager
+import com.cepotdev.dicory.logic.helper.emailValidation
 import com.cepotdev.dicory.logic.model.LoginRequest
 import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
-import com.cepotdev.dicory.ui.viewmodel.LoginViewModel
 import com.cepotdev.dicory.ui.viewmodel.ViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +22,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
-        sessionManager = SessionManager(this)
 
         val viewModelFactory = ViewModelFactory(this.applicationContext)
         val authViewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
@@ -33,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
             if (loginResponse.error) {
                 Toast.makeText(
                     this@LoginActivity,
-                    "Cek kembali username dan password anda!",
+                    getString(R.string.check_your_input),
                     Toast.LENGTH_LONG
                 )
                     .show()
@@ -45,12 +43,19 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnSignIn.setOnClickListener {
-            val loginRequest = LoginRequest(
-                email = binding.tfLogin.text.toString(),
-                password = binding.tfPassword.text.toString()
-            )
+            val email = binding.tfLoginEmail.text.toString()
 
-            authViewModel.userLogin(loginRequest)
+            if (emailValidation(email)) {
+                val loginRequest = LoginRequest(
+                    email = binding.tfLoginEmail.text.toString(),
+                    password = binding.etLoginPassword.text.toString()
+                )
+
+                authViewModel.userLogin(loginRequest)
+            } else {
+                binding.tfLoginEmail.error = getString(R.string.invalid_email)
+            }
+
         }
     }
 }

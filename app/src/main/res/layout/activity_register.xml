@@ -39,7 +39,7 @@
             tools:visibility="visible" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tf_username"
+            android:id="@+id/tf_register_name"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_register"
@@ -49,20 +49,20 @@
             android:hint="@string/username" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tf_login"
+            android:id="@+id/tf_register_email"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tf_username"
+            android:layout_below="@id/tf_register_name"
             android:layout_centerInParent="true"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/black"
             android:hint="@string/email" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tf_password"
+        <com.cepotdev.dicory.ui.customview.PasswordEditText
+            android:id="@+id/et_register_password"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tf_login"
+            android:layout_below="@id/tf_register_email"
             android:layout_centerInParent="true"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/black"
@@ -72,7 +72,7 @@
             android:id="@+id/btn_register"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tf_password"
+            android:layout_below="@id/et_register_password"
             android:layout_centerInParent="true"
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/teal_700"

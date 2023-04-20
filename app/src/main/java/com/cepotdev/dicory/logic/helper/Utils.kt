@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
 import android.os.Environment
+import android.util.Patterns
 import com.cepotdev.dicory.R
 import java.io.*
 import java.text.SimpleDateFormat
@@ -82,4 +83,9 @@ fun rotateFile(file: File, isBackCamera: Boolean = false) {
     }
     val result = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
     result.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(file))
+}
+
+fun emailValidation(email: String): Boolean{
+    val emailPattern = Patterns.EMAIL_ADDRESS
+    return emailPattern.matcher(email).matches()
 }
