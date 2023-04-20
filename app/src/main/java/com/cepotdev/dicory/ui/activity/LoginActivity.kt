@@ -47,6 +47,10 @@ class LoginActivity : AppCompatActivity() {
             Log.d("Readme", loginResponse.message.toString())
         }
 
+        authViewModel.isLoginLoading.observe(this) {
+            showLoading(it)
+        }
+
         binding.btnSignIn.setOnClickListener {
             val email = binding.tfLoginEmail.text.toString()
 
@@ -62,6 +66,10 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.pbLogin.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun playAnimation() {

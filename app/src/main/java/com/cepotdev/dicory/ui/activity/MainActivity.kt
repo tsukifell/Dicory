@@ -3,6 +3,7 @@ package com.cepotdev.dicory.ui.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,8 +29,8 @@ class MainActivity : AppCompatActivity() {
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvStories.addItemDecoration(itemDecoration)
 
-        if(intent.getBooleanExtra("upload_success", false)){
-            authViewModel.storyItem.observe(this){
+        if (intent.getBooleanExtra("upload_success", false)) {
+            authViewModel.storyItem.observe(this) {
                 showListAdapter(it)
             }
         }
@@ -38,9 +39,13 @@ class MainActivity : AppCompatActivity() {
             showListAdapter(it)
         }
 
-        binding.fabAdd.setOnClickListener{
+        binding.fabAdd.setOnClickListener {
             val i = Intent(this, PostActivity::class.java)
             startActivity(i)
+        }
+
+        authViewModel.isMainLoading.observe(this) {
+            showLoading(it)
         }
 
     }
@@ -48,5 +53,9 @@ class MainActivity : AppCompatActivity() {
     private fun showListAdapter(listStories: List<ListStoryItem>) {
         val adapter = StoriesAdapter(listStories)
         binding.rvStories.adapter = adapter
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.pbMain.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

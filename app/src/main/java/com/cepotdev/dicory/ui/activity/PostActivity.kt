@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -66,6 +67,10 @@ class PostActivity : AppCompatActivity() {
 
         val viewModelFactory = ViewModelFactory(this.applicationContext)
         val authViewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
+
+        authViewModel.isPostLoading.observe(this){
+            showLoading(it)
+        }
 
         if (!allPermissionsGranted()) {
             ActivityCompat.requestPermissions(
@@ -161,5 +166,9 @@ class PostActivity : AppCompatActivity() {
                 binding.ivPlaceholder.setImageURI(uri)
             }
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.pbPostStories.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

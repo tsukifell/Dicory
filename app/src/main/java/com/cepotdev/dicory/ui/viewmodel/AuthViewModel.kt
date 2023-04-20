@@ -30,8 +30,20 @@ class AuthViewModel(private val context: Context) : ViewModel() {
     private val _postingResponse = MutableLiveData<PostingStoriesResponse>()
     val postingResponse: LiveData<PostingStoriesResponse> = _postingResponse
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    private val _isRegisterLoading = MutableLiveData<Boolean>()
+    val isRegisterLoading: LiveData<Boolean> = _isRegisterLoading
+
+    private val _isLoginLoading = MutableLiveData<Boolean>()
+    val isLoginLoading: LiveData<Boolean> = _isLoginLoading
+
+    private val _isMainLoading = MutableLiveData<Boolean>()
+    val isMainLoading: LiveData<Boolean> = _isMainLoading
+
+    private val _isDetailLoading = MutableLiveData<Boolean>()
+    val isDetailLoading: LiveData<Boolean> = _isDetailLoading
+
+    private val _isPostLoading = MutableLiveData<Boolean>()
+    val isPostLoading: LiveData<Boolean> = _isPostLoading
 
     private val apiConfig = ApiConfig()
 
@@ -44,12 +56,14 @@ class AuthViewModel(private val context: Context) : ViewModel() {
     }
 
     fun userLogin(loginRequest: LoginRequest) {
+        _isLoginLoading.value = true
         apiConfig.getApiService(context).userLogin(loginRequest)
             .enqueue(object : Callback<LoginResponse> {
                 override fun onResponse(
                     call: Call<LoginResponse>,
                     response: Response<LoginResponse>
                 ) {
+                    _isLoginLoading.value = false
                     if (response.isSuccessful && response.body() != null) {
                         _loginResponse.postValue(response.body())
                         response.body()?.loginResult?.token?.let {
@@ -73,12 +87,14 @@ class AuthViewModel(private val context: Context) : ViewModel() {
     }
 
     private fun showStories() {
+        _isMainLoading.value = true
         apiConfig.getApiService(context).getAllStories()
             .enqueue(object : Callback<StoriesResponse> {
                 override fun onResponse(
                     call: Call<StoriesResponse>,
                     response: Response<StoriesResponse>
                 ) {
+                    _isMainLoading.value = false
                     if (response.isSuccessful) {
                         @Suppress("UNCHECKED_CAST")
                         _storyItem.value = response.body()?.listStory as List<ListStoryItem>
@@ -95,12 +111,14 @@ class AuthViewModel(private val context: Context) : ViewModel() {
     }
 
     fun getDetailStory(id: String) {
+        _isDetailLoading.value = true
         apiConfig.getApiService(context).getDetailStories(id)
             .enqueue(object : Callback<DetailStoriesResponse> {
                 override fun onResponse(
                     call: Call<DetailStoriesResponse>,
                     response: Response<DetailStoriesResponse>
                 ) {
+                    _isDetailLoading.value = false
                     if (response.isSuccessful) {
                         Log.d(TAG, "getDetailStory onResponse: successful")
                         _story.value = response.body()
@@ -119,13 +137,14 @@ class AuthViewModel(private val context: Context) : ViewModel() {
     }
 
     fun userRegister(userData: UserRequest) {
+        _isRegisterLoading.value = true
         apiConfig.getApiService(context).userRegister(userData)
             .enqueue(object : Callback<UserResponse> {
                 override fun onResponse(
                     call: Call<UserResponse>,
                     response: Response<UserResponse>
                 ) {
-                    _isLoading.value = false
+                    _isRegisterLoading.value = false
                     if (response.isSuccessful && response.body() != null) {
                         _userResponse.postValue(response.body())
                     } else {
@@ -145,14 +164,16 @@ class AuthViewModel(private val context: Context) : ViewModel() {
             })
     }
 
-    fun postStories(imageFile: MultipartBody.Part, description: RequestBody ) {
+    fun postStories(imageFile: MultipartBody.Part, description: RequestBody) {
+        _isPostLoading.value = true
         apiConfig.getApiService(context).postStories(imageFile, description)
-            .enqueue(object : Callback<PostingStoriesResponse>{
+            .enqueue(object : Callback<PostingStoriesResponse> {
                 override fun onResponse(
                     call: Call<PostingStoriesResponse>,
                     response: Response<PostingStoriesResponse>
                 ) {
-                    if(response.isSuccessful && response.body() != null){
+                    _isPostLoading.value = false
+                    if (response.isSuccessful && response.body() != null) {
                         _postingResponse.postValue(response.body())
                     }
                 }

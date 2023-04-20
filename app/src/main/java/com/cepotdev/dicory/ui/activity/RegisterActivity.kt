@@ -32,7 +32,7 @@ class RegisterActivity : AppCompatActivity() {
         val authViewModel =
             ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
 
-        authViewModel.isLoading.observe(this) {
+        authViewModel.isRegisterLoading.observe(this) {
             showLoading(it)
         }
 
@@ -68,14 +68,14 @@ class RegisterActivity : AppCompatActivity() {
                 binding.tfRegisterEmail.error = getString(R.string.invalid_email)
             }
 
-            authViewModel.isLoading.observe(this) {
+            authViewModel.isRegisterLoading.observe(this) {
                 showLoading(it)
             }
         }
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.pbLoading.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.pbRegister.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun playAnimation() {

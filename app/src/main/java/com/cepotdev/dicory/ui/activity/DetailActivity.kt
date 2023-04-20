@@ -3,6 +3,7 @@ package com.cepotdev.dicory.ui.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.cepotdev.dicory.databinding.ActivityDetailBinding
@@ -30,6 +31,10 @@ class DetailActivity : AppCompatActivity() {
         authViewModel.story.observe(this) {
             setDetail(it)
         }
+
+        authViewModel.isDetailLoading.observe(this) {
+            showLoading(it)
+        }
     }
 
     private fun setDetail(stories: DetailStoriesResponse?) {
@@ -41,5 +46,9 @@ class DetailActivity : AppCompatActivity() {
                 .load(stories.story?.photoUrl)
                 .into(binding.ivDetailStories)
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.pbDetailStories.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }
