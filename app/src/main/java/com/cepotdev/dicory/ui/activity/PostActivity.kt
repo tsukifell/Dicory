@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ActivityPostBinding
 import com.cepotdev.dicory.logic.helper.rotateFile
 import com.cepotdev.dicory.logic.helper.uriToFile
@@ -46,7 +47,7 @@ class PostActivity : AppCompatActivity() {
             if (!allPermissionsGranted()) {
                 Toast.makeText(
                     this,
-                    "Tidak mendapatkan permission.",
+                    getString(R.string.failed_permission),
                     Toast.LENGTH_SHORT
                 ).show()
                 finish()
@@ -76,12 +77,12 @@ class PostActivity : AppCompatActivity() {
 
         authViewModel.postingResponse.observe(this){ response->
             if (!response.error){
-                Toast.makeText(this, "Post has been uploaded!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.success_post), Toast.LENGTH_SHORT).show()
                 val i = Intent(this, MainActivity::class.java)
                 i.putExtra("upload_success", true)
                 startActivity(i)
             } else{
-                Toast.makeText(this, "Failed to upload post!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.failed_post), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -105,7 +106,7 @@ class PostActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(
                     this@PostActivity,
-                    "Silahkan masukkan berkas gambar terlebih dahulu.",
+                    getString(R.string.choose_file),
                     Toast.LENGTH_SHORT
                 ).show()
             }

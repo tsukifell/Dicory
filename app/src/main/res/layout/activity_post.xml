@@ -24,6 +24,8 @@
             android:id="@+id/iv_placeholder"
             android:layout_width="wrap_content"
             android:layout_height="350dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
             android:layout_below="@id/tv_upload_stories"
             android:contentDescription="@string/image_placeholder"
             android:src="@drawable/image_placeholder" />
@@ -86,6 +88,7 @@
             android:layout_below="@id/til_desc"
             android:layout_centerInParent="true"
             android:layout_marginTop="24dp"
+            app:cornerRadius="10dp"
             android:backgroundTint="@color/teal_700"
             android:text="@string/upload" />
 

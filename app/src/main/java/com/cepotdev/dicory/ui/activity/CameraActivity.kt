@@ -13,6 +13,7 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ActivityCameraBinding
 import com.cepotdev.dicory.logic.helper.createFile
 
@@ -56,7 +57,7 @@ class CameraActivity : AppCompatActivity() {
                 override fun onError(exception: ImageCaptureException) {
                     Toast.makeText(
                         this@CameraActivity,
-                        "Gagal mengambil Gambar.",
+                        getString(R.string.failed_taking_picture),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -98,7 +99,7 @@ class CameraActivity : AppCompatActivity() {
             } catch (exc: Exception) {
                 Toast.makeText(
                     this@CameraActivity,
-                    "Gagal memunculkan kamera!",
+                    getString(R.string.failed_open_camera),
                     Toast.LENGTH_SHORT
                 ).show()
             }

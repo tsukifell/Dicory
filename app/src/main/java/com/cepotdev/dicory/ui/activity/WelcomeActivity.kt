@@ -5,10 +5,10 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ActivityWelcomeBinding
 
@@ -24,7 +24,7 @@ class WelcomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu1 -> {
-                Toast.makeText(this, "Language pressed", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
                 true
             }
             else -> true

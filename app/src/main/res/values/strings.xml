@@ -21,7 +21,7 @@
     <string name="hint_description">Description</string>
     <string name="upload">Upload</string>
     <string name="image_placeholder">Image Placeholder</string>
-    <string name="shutter">canera_shutter</string>
+    <string name="shutter">camera_shutter</string>
     <string name="switch_camera">switch_camera</string>
     <string name="password_err">Password should be 8 characters or more!</string>
     <string name="check_your_input">The email or password that you inputted is wrong!</string>
@@ -29,4 +29,10 @@
     <string name="email_used">Email is already used!</string>
     <string name="ok_login">Please login with your email and password!</string>
     <string name="detail_image_stories">Detail image stories</string>
+    <string name="failed_permission">Failed to get permission</string>
+    <string name="success_post">Story has been uploaded!</string>
+    <string name="failed_post">Failed to upload story!</string>
+    <string name="choose_file">Please choose your file</string>
+    <string name="failed_taking_picture">Failed to take a picture!</string>
+    <string name="failed_open_camera">Failed to open the camera!</string>
 </resources>

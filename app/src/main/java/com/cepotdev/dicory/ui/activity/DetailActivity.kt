@@ -8,7 +8,6 @@ import com.bumptech.glide.Glide
 import com.cepotdev.dicory.databinding.ActivityDetailBinding
 import com.cepotdev.dicory.logic.model.DetailStoriesResponse
 import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
-import com.cepotdev.dicory.ui.viewmodel.MainViewModel
 import com.cepotdev.dicory.ui.viewmodel.ViewModelFactory
 
 class DetailActivity : AppCompatActivity() {
