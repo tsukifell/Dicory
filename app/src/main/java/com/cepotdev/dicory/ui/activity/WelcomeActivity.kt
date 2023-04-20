@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ActivityWelcomeBinding
+import com.cepotdev.dicory.logic.helper.SessionManager
 
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding
@@ -35,6 +36,13 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val sessionManager = SessionManager(this)
+        if(!sessionManager.fetchAuthToken().isNullOrEmpty()){
+            val i = Intent(this, MainActivity::class.java)
+            startActivity(i)
+            finish()
+        }
 
         playAnimation()
 

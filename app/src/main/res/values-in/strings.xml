@@ -37,4 +37,5 @@
     <string name="failed_taking_picture">Gagal mengambil gambar!</string>
     <string name="failed_open_camera">Gagal membuka kamera!</string>
     <string name="add_new_story">Tambah cerita baru</string>
+    <string name="logout">Keluar</string>
 </resources>

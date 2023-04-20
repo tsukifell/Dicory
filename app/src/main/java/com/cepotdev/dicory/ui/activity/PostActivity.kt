@@ -68,7 +68,7 @@ class PostActivity : AppCompatActivity() {
         val viewModelFactory = ViewModelFactory(this.applicationContext)
         val authViewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
 
-        authViewModel.isPostLoading.observe(this){
+        authViewModel.isPostLoading.observe(this) {
             showLoading(it)
         }
 
@@ -80,13 +80,13 @@ class PostActivity : AppCompatActivity() {
             )
         }
 
-        authViewModel.postingResponse.observe(this){ response->
-            if (!response.error){
+        authViewModel.postingResponse.observe(this) { response ->
+            if (!response.error) {
                 Toast.makeText(this, getString(R.string.success_post), Toast.LENGTH_SHORT).show()
                 val i = Intent(this, MainActivity::class.java)
                 i.putExtra("upload_success", true)
                 startActivity(i)
-            } else{
+            } else {
                 Toast.makeText(this, getString(R.string.failed_post), Toast.LENGTH_SHORT).show()
             }
         }
