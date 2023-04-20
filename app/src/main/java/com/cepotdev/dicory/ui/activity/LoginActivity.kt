@@ -1,9 +1,12 @@
 package com.cepotdev.dicory.ui.activity
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.cepotdev.dicory.R
@@ -22,6 +25,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
+
+        playAnimation()
 
         val viewModelFactory = ViewModelFactory(this.applicationContext)
         val authViewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
@@ -56,6 +61,30 @@ class LoginActivity : AppCompatActivity() {
                 binding.tfLoginEmail.error = getString(R.string.invalid_email)
             }
 
+        }
+    }
+
+    private fun playAnimation() {
+        ObjectAnimator.ofFloat(binding.ivLogin, View.TRANSLATION_X, -30f, 30f).apply {
+            duration = 4000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+
+        val title = ObjectAnimator.ofFloat(binding.tvLogin, View.ALPHA, 1f).setDuration(500)
+        val email = ObjectAnimator.ofFloat(binding.tfLoginEmail, View.ALPHA, 1f).setDuration(500)
+        val password =
+            ObjectAnimator.ofFloat(binding.etLoginPassword, View.ALPHA, 1f).setDuration(500)
+        val btnSignIn =
+            ObjectAnimator.ofFloat(binding.btnSignIn, View.ALPHA, 1f).setDuration(500)
+
+        val playIt = AnimatorSet().apply {
+            playTogether(email, password)
+        }
+
+        AnimatorSet().apply {
+            playSequentially(title, playIt, btnSignIn)
+            start()
         }
     }
 }

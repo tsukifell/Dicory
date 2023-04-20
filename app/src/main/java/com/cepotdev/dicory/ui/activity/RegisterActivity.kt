@@ -1,5 +1,7 @@
 package com.cepotdev.dicory.ui.activity
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,6 +25,8 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
+
+        playAnimation()
 
         val viewModelFactory = ViewModelFactory(this.applicationContext)
         val authViewModel =
@@ -72,5 +76,30 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.pbLoading.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun playAnimation() {
+        ObjectAnimator.ofFloat(binding.ivRegister, View.TRANSLATION_X, -30f, 30f).apply {
+            duration = 4000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+
+        val title = ObjectAnimator.ofFloat(binding.tvRegister, View.ALPHA, 1f).setDuration(500)
+        val name = ObjectAnimator.ofFloat(binding.tfRegisterName, View.ALPHA, 1f).setDuration(500)
+        val email = ObjectAnimator.ofFloat(binding.tfRegisterEmail, View.ALPHA, 1f).setDuration(500)
+        val password =
+            ObjectAnimator.ofFloat(binding.etRegisterPassword, View.ALPHA, 1f).setDuration(500)
+        val btnRegister =
+            ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(500)
+
+        val playIt = AnimatorSet().apply {
+            playTogether(name, email, password)
+        }
+
+        AnimatorSet().apply {
+            playSequentially(title, playIt, btnRegister)
+            start()
+        }
     }
 }
