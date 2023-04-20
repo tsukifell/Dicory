@@ -37,4 +37,7 @@
     <string name="failed_open_camera">Failed to open the camera!</string>
     <string name="add_new_story">Add new story</string>
     <string name="logout">Logout</string>
+    <string name="main_title">Stories</string>
+    <string name="detail_title">Story Detail</string>
+    <string name="post_title">Story Overview</string>
 </resources>

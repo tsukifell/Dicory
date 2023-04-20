@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ActivityDetailBinding
 import com.cepotdev.dicory.logic.model.DetailStoriesResponse
 import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
@@ -23,6 +24,10 @@ class DetailActivity : AppCompatActivity() {
 
         val viewModelFactory = ViewModelFactory(this.applicationContext)
         val authViewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
+
+        supportActionBar?.apply {
+            title = getString(R.string.detail_title)
+        }
 
         if (keyStories != null) {
             authViewModel.getDetailStory(keyStories)

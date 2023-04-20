@@ -49,6 +49,10 @@ class MainActivity : AppCompatActivity() {
         val viewModelFactory = ViewModelFactory(this.applicationContext)
         val authViewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
 
+        supportActionBar?.apply {
+            title = getString(R.string.main_title)
+        }
+
         val layoutManager = LinearLayoutManager(this)
         binding.rvStories.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)

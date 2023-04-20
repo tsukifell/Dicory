@@ -68,6 +68,10 @@ class PostActivity : AppCompatActivity() {
         val viewModelFactory = ViewModelFactory(this.applicationContext)
         val authViewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
 
+        supportActionBar?.apply {
+            title = getString(R.string.post_title)
+        }
+
         authViewModel.isPostLoading.observe(this) {
             showLoading(it)
         }

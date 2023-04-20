@@ -38,4 +38,7 @@
     <string name="failed_open_camera">Gagal membuka kamera!</string>
     <string name="add_new_story">Tambah cerita baru</string>
     <string name="logout">Keluar</string>
+    <string name="main_title">Cerita</string>
+    <string name="detail_title">Detail Cerita</string>
+    <string name="post_title">Ringkasan Cerita</string>
 </resources>
