@@ -3,10 +3,14 @@ package com.cepotdev.dicory.ui.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ActivityDetailBinding
 import com.cepotdev.dicory.logic.model.DetailStoriesResponse
-import com.cepotdev.dicory.viewmodel.MainViewModel
+import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
+import com.cepotdev.dicory.ui.viewmodel.ViewModelFactory
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
@@ -17,14 +21,24 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val keyStories = intent.getStringExtra("key_stories")
-        val mainViewModel = MainViewModel(context = applicationContext)
 
-        if (keyStories != null) {
-            mainViewModel.getDetailStory(keyStories)
+        val viewModelFactory = ViewModelFactory(this.applicationContext)
+        val authViewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
+
+        supportActionBar?.apply {
+            title = getString(R.string.detail_title)
         }
 
-        mainViewModel.story.observe(this) {
+        if (keyStories != null) {
+            authViewModel.getDetailStory(keyStories)
+        }
+
+        authViewModel.story.observe(this) {
             setDetail(it)
+        }
+
+        authViewModel.isDetailLoading.observe(this) {
+            showLoading(it)
         }
     }
 
@@ -37,5 +51,9 @@ class DetailActivity : AppCompatActivity() {
                 .load(stories.story?.photoUrl)
                 .into(binding.ivDetailStories)
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.pbDetailStories.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dicory</string>
+    <string name="register">Daftar</string>
+    <string name="sign_in">Masuk</string>
+    <string name="welcome_desc">Terhubung dengan pengguna lain di platform Dicoding dan \nbagikan cerita anda!</string>
+    <string name="dicory_greet">Selamat datang di Dicory!</string>
+    <string name="logo_coDesc">Logo Komunikasi</string>
+    <string name="lang">Bahasa</string>
+    <string name="login_coDes">Logo Login</string>
+    <string name="login_greet">Masuk ke Dicory!</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="make_account">Ayo buat akun baru!</string>
+    <string name="username">Nama pengguna</string>
+    <string name="account_username">Akun nama pengguna</string>
+    <string name="account_description">Deskripsi dari komentar</string>
+    <string name="content_description">Foto Stories</string>
+    <string name="upload_your_story">Unggah cerita anda!</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="hint_description">Deskripsi</string>
+    <string name="upload">Unggah</string>
+    <string name="image_placeholder">Placeholder gambar</string>
+    <string name="shutter">shutter_kamera</string>
+    <string name="switch_camera">ubah_kamera</string>
+    <string name="password_err">Password harus minimal 8 karakter atau lebih!</string>
+    <string name="check_your_input">Email atau password yang anda masukkan salah!</string>
+    <string name="invalid_email">Email yang anda masukkan tidak dikenali!</string>
+    <string name="email_used">Email telah digunakan!</string>
+    <string name="ok_login">Lanjutkan login dengan email dan password anda!</string>
+    <string name="detail_image_stories">Detil image stories</string>
+    <string name="failed_permission">Gagal mendapatkan hak akses</string>
+    <string name="success_post">Cerita berhasil diunggah!</string>
+    <string name="failed_post">Cerita gagal diunggah!</string>
+    <string name="choose_file">Pilih berkas terlebih dahulu</string>
+    <string name="failed_taking_picture">Gagal mengambil gambar!</string>
+    <string name="failed_open_camera">Gagal membuka kamera!</string>
+    <string name="add_new_story">Tambah cerita baru</string>
+    <string name="logout">Keluar</string>
+    <string name="main_title">Cerita</string>
+    <string name="detail_title">Detail Cerita</string>
+    <string name="post_title">Ringkasan Cerita</string>
+    <string name="desc_minimal">Deskripsi harus di isi minimal 1 huruf!</string>
+</resources>

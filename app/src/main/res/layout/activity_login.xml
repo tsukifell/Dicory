@@ -1,62 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.activity.LoginActivity">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_login"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="96dp"
-        android:contentDescription="@string/login_coDes"
-        android:src="@drawable/login" />
-
-    <TextView
-        android:id="@+id/tv_login"
-        android:layout_width="wrap_content"
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/pb_login"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/iv_login"
-        android:layout_centerInParent="true"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/login_greet"
-        android:textColor="@color/black"
-        android:textSize="28sp"
-        android:textStyle="bold" />
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:indicatorColor="@color/teal_700"
+        app:layout_constraintTop_toTopOf="parent"
+        app:trackColor="@color/black" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tf_login"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_login"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/black"
-        android:hint="@string/email" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/pb_login">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tf_password"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tf_login"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/black"
-        android:hint="@string/password" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_signIn"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tf_password"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="@color/teal_700"
-        android:text="@string/sign_in"
-        android:textStyle="bold"
-        app:cornerRadius="30dp" />
+            <ImageView
+                android:id="@+id/iv_login"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="96dp"
+                android:contentDescription="@string/login_coDes"
+                android:src="@drawable/login" />
 
+            <TextView
+                android:id="@+id/tv_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_login"
+                android:layout_centerInParent="true"
+                android:alpha="0"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/login_greet"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tf_login_email"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_login"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="16dp"
+                android:alpha="0"
+                android:backgroundTint="@color/black"
+                android:hint="@string/email" />
+
+            <com.cepotdev.dicory.ui.customview.PasswordEditText
+                android:id="@+id/et_login_password"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tf_login_email"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="16dp"
+                android:alpha="0"
+                android:backgroundTint="@color/black"
+                android:hint="@string/password" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_signIn"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_login_password"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="24dp"
+                android:alpha="0"
+                android:backgroundTint="@color/teal_700"
+                android:text="@string/sign_in"
+                android:textStyle="bold"
+                app:cornerRadius="30dp" />
+
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
