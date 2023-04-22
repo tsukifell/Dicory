@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -32,7 +31,6 @@ class LoginActivity : AppCompatActivity() {
         val authViewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
 
         authViewModel.loginResponse.observe(this) { loginResponse ->
-            Log.d("Readme", "before if: " + loginResponse.error.toString())
             if (loginResponse.error) {
                 Toast.makeText(
                     this@LoginActivity,
@@ -44,7 +42,6 @@ class LoginActivity : AppCompatActivity() {
                 val i = Intent(this, MainActivity::class.java)
                 startActivity(i)
             }
-            Log.d("Readme", loginResponse.message.toString())
         }
 
         authViewModel.isLoginLoading.observe(this) {

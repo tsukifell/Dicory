@@ -40,4 +40,5 @@
     <string name="main_title">Stories</string>
     <string name="detail_title">Story Detail</string>
     <string name="post_title">Story Overview</string>
+    <string name="desc_minimal">Description should at least be 1 character!</string>
 </resources>

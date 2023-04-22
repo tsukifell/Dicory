@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ActivityPostBinding
+import com.cepotdev.dicory.logic.helper.reduceFileImage
 import com.cepotdev.dicory.logic.helper.rotateFile
 import com.cepotdev.dicory.logic.helper.uriToFile
 import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
@@ -99,19 +100,27 @@ class PostActivity : AppCompatActivity() {
         binding.btnGallery.setOnClickListener { startGallery() }
         binding.btnUpload.setOnClickListener {
             if (getFile != null) {
-                val file = reduceFileImage(getFile as File)
-
-                val description =
-                    binding.etDesc.text.toString().toRequestBody("text/plain".toMediaType())
-                val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-                val imageMultiPart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                    "photo",
-                    file.name,
-                    requestImageFile
-                )
-
-                authViewModel.postStories(imageMultiPart, description)
-
+                val description = binding.etDesc.text.toString()
+                if (description.isEmpty()) {
+                    Toast.makeText(
+                        this@PostActivity,
+                        getString(R.string.desc_minimal),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    // proceed with upload
+                    val file = reduceFileImage(getFile as File)
+                    val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                    val imageMultiPart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                        "photo",
+                        file.name,
+                        requestImageFile
+                    )
+                    authViewModel.postStories(
+                        imageMultiPart,
+                        description.toRequestBody("text/plain".toMediaType())
+                    )
+                }
             } else {
                 Toast.makeText(
                     this@PostActivity,
@@ -120,10 +129,6 @@ class PostActivity : AppCompatActivity() {
                 ).show()
             }
         }
-    }
-
-    private fun reduceFileImage(file: File): File {
-        return file
     }
 
     private fun startGallery() {

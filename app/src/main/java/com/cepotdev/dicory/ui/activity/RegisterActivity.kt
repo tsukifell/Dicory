@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -37,7 +36,6 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         authViewModel.userResponse.observe(this) { userResponse ->
-            Log.d("Readme", "before if: " + userResponse.error.toString())
             if (userResponse.error) {
                 Toast.makeText(
                     this@RegisterActivity,
@@ -50,7 +48,6 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.ok_login), Toast.LENGTH_SHORT).show()
                 startActivity(i)
             }
-            Log.d("Readme", userResponse.message)
         }
 
         binding.btnRegister.setOnClickListener {

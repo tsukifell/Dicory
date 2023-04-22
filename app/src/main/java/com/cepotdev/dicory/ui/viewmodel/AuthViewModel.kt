@@ -86,7 +86,7 @@ class AuthViewModel(private val context: Context) : ViewModel() {
             })
     }
 
-    private fun showStories() {
+    fun showStories() {
         _isMainLoading.value = true
         apiConfig.getApiService(context).getAllStories()
             .enqueue(object : Callback<StoriesResponse> {

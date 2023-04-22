@@ -3,6 +3,7 @@ package com.cepotdev.dicory.ui.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -58,6 +59,13 @@ class MainActivity : AppCompatActivity() {
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvStories.addItemDecoration(itemDecoration)
 
+        binding.sflMain.setOnRefreshListener {
+            Handler(mainLooper).postDelayed({
+                binding.sflMain.isRefreshing = false
+                authViewModel.showStories()
+            }, 4000)
+        }
+
         if (intent.getBooleanExtra("upload_success", false)) {
             authViewModel.storyItem.observe(this) {
                 showListAdapter(it)
@@ -88,6 +96,7 @@ class MainActivity : AppCompatActivity() {
         binding.pbMain.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
+    @Suppress("DEPRECATION")
     @Deprecated("Deprecated when backpressed")
     override fun onBackPressed() {
         if (SessionManager(this).fetchAuthToken().isNullOrEmpty()) {
