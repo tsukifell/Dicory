@@ -15,6 +15,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
+    // Remove it when submitting!
+
     private val _loginResponse = MutableLiveData<LoginResponse>()
     val loginResponse: LiveData<LoginResponse> = _loginResponse
 
