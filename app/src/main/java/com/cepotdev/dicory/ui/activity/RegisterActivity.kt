@@ -12,11 +12,11 @@ import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ActivityRegisterBinding
 import com.cepotdev.dicory.logic.helper.emailValidation
 import com.cepotdev.dicory.logic.model.UserRequest
-import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
+import com.cepotdev.dicory.ui.viewmodel.RegisterViewModel
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
-    private lateinit var authViewModel: AuthViewModel
+    private lateinit var registerViewModel: RegisterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +27,13 @@ class RegisterActivity : AppCompatActivity() {
 
         playAnimation()
 
-        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
+        registerViewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
 
-        authViewModel.isRegisterLoading.observe(this) {
+        registerViewModel.isRegisterLoading.observe(this) {
             showLoading(it)
         }
 
-        authViewModel.userResponse.observe(this) { userResponse ->
+        registerViewModel.userResponse.observe(this) { userResponse ->
             if (userResponse.error) {
                 Toast.makeText(
                     this@RegisterActivity,
@@ -58,12 +58,12 @@ class RegisterActivity : AppCompatActivity() {
                     password = binding.etRegisterPassword.text.toString()
                 )
 
-                authViewModel.userRegister(userData)
+                registerViewModel.userRegister(userData)
             } else {
                 binding.tfRegisterEmail.error = getString(R.string.invalid_email)
             }
 
-            authViewModel.isRegisterLoading.observe(this) {
+            registerViewModel.isRegisterLoading.observe(this) {
                 showLoading(it)
             }
         }

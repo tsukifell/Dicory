@@ -8,18 +8,17 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ActivityMainBinding
 import com.cepotdev.dicory.logic.helper.SessionManager
 import com.cepotdev.dicory.logic.model.ListStoryItem
 import com.cepotdev.dicory.ui.adapter.StoriesAdapter
-import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
+import com.cepotdev.dicory.ui.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var authViewModel: AuthViewModel
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         supportActionBar?.apply {
             title = getString(R.string.main_title)
@@ -59,17 +58,17 @@ class MainActivity : AppCompatActivity() {
         binding.sflMain.setOnRefreshListener {
             Handler(mainLooper).postDelayed({
                 binding.sflMain.isRefreshing = false
-                authViewModel.showStories()
+                mainViewModel.showStories()
             }, 4000)
         }
 
         if (intent.getBooleanExtra("upload_success", false)) {
-            authViewModel.storyItem.observe(this) {
+            mainViewModel.storyItem.observe(this) {
                 showListAdapter(it)
             }
         }
 
-        authViewModel.storyItem.observe(this) {
+        mainViewModel.storyItem.observe(this) {
             showListAdapter(it)
         }
 
@@ -78,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(i)
         }
 
-        authViewModel.isMainLoading.observe(this) {
+        mainViewModel.isMainLoading.observe(this) {
             showLoading(it)
         }
 

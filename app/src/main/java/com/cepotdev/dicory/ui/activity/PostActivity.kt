@@ -19,7 +19,7 @@ import com.cepotdev.dicory.databinding.ActivityPostBinding
 import com.cepotdev.dicory.logic.helper.reduceFileImage
 import com.cepotdev.dicory.logic.helper.rotateFile
 import com.cepotdev.dicory.logic.helper.uriToFile
-import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
+import com.cepotdev.dicory.ui.viewmodel.PostViewModel
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -30,7 +30,7 @@ import java.io.File
 class PostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPostBinding
     private var getFile: File? = null
-    private lateinit var authViewModel: AuthViewModel
+    private lateinit var postViewModel: PostViewModel
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -59,13 +59,13 @@ class PostActivity : AppCompatActivity() {
         binding = ActivityPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
+        postViewModel = ViewModelProvider(this)[PostViewModel::class.java]
 
         supportActionBar?.apply {
             title = getString(R.string.post_title)
         }
 
-        authViewModel.isPostLoading.observe(this) {
+        postViewModel.isPostLoading.observe(this) {
             showLoading(it)
         }
 
@@ -77,7 +77,7 @@ class PostActivity : AppCompatActivity() {
             )
         }
 
-        authViewModel.postingResponse.observe(this) { response ->
+        postViewModel.postingResponse.observe(this) { response ->
             if (!response.error) {
                 Toast.makeText(this, getString(R.string.success_post), Toast.LENGTH_SHORT).show()
                 val i = Intent(this, MainActivity::class.java)
@@ -108,7 +108,7 @@ class PostActivity : AppCompatActivity() {
                         file.name,
                         requestImageFile
                     )
-                    authViewModel.postStories(
+                    postViewModel.postStories(
                         imageMultiPart,
                         description.toRequestBody("text/plain".toMediaType())
                     )

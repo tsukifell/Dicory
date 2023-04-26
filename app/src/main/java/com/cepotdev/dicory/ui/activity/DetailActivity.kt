@@ -9,11 +9,11 @@ import com.bumptech.glide.Glide
 import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ActivityDetailBinding
 import com.cepotdev.dicory.logic.model.DetailStoriesResponse
-import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
+import com.cepotdev.dicory.ui.viewmodel.DetailViewModel
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var authViewModel: AuthViewModel
+    private lateinit var detailViewModel: DetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,21 +21,21 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val keyStories = intent.getStringExtra(KEY_STORIES)
-        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
+        detailViewModel = ViewModelProvider(this)[DetailViewModel::class.java]
 
         supportActionBar?.apply {
             title = getString(R.string.detail_title)
         }
 
         if (keyStories != null) {
-            authViewModel.getDetailStory(keyStories)
+            detailViewModel.getDetailStory(keyStories)
         }
 
-        authViewModel.story.observe(this) {
+        detailViewModel.story.observe(this) {
             setDetail(it)
         }
 
-        authViewModel.isDetailLoading.observe(this) {
+        detailViewModel.isDetailLoading.observe(this) {
             showLoading(it)
         }
     }

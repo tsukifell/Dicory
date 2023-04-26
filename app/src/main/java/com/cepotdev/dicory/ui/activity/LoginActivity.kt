@@ -12,11 +12,11 @@ import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ActivityLoginBinding
 import com.cepotdev.dicory.logic.helper.emailValidation
 import com.cepotdev.dicory.logic.model.LoginRequest
-import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
+import com.cepotdev.dicory.ui.viewmodel.LoginViewModel
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var authViewModel: AuthViewModel
+    private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +26,9 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         playAnimation()
-        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
+        loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 
-        authViewModel.loginResponse.observe(this) { loginResponse ->
+        loginViewModel.loginResponse.observe(this) { loginResponse ->
             if (loginResponse.error) {
                 Toast.makeText(
                     this@LoginActivity,
@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        authViewModel.isLoginLoading.observe(this) {
+        loginViewModel.isLoginLoading.observe(this) {
             showLoading(it)
         }
 
@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
                     password = binding.etLoginPassword.text.toString()
                 )
 
-                authViewModel.userLogin(loginRequest)
+                loginViewModel.userLogin(loginRequest)
             } else {
                 binding.tfLoginEmail.error = getString(R.string.invalid_email)
             }
