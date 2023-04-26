@@ -20,7 +20,7 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val keyStories = intent.getStringExtra("key_stories")
+        val keyStories = intent.getStringExtra(KEY_STORIES)
         authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
 
         supportActionBar?.apply {
@@ -53,5 +53,9 @@ class DetailActivity : AppCompatActivity() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.pbDetailStories.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    companion object {
+        const val KEY_STORIES = "key_stories"
     }
 }

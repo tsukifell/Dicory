@@ -32,13 +32,6 @@ class PostActivity : AppCompatActivity() {
     private var getFile: File? = null
     private lateinit var authViewModel: AuthViewModel
 
-    companion object {
-        const val CAMERA_X_RESULT = 200
-
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
-        private const val REQUEST_CODE_PERMISSIONS = 10
-    }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -66,7 +59,7 @@ class PostActivity : AppCompatActivity() {
         binding = ActivityPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
+        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
 
         supportActionBar?.apply {
             title = getString(R.string.post_title)
@@ -178,5 +171,12 @@ class PostActivity : AppCompatActivity() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.pbPostStories.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    companion object {
+        const val CAMERA_X_RESULT = 200
+
+        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+        private const val REQUEST_CODE_PERMISSIONS = 10
     }
 }
