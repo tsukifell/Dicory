@@ -41,4 +41,5 @@
     <string name="detail_title">Story Detail</string>
     <string name="post_title">Story Overview</string>
     <string name="desc_minimal">Description should at least be 1 character!</string>
+    <string name="uploaded_date">Date of uploaded stories</string>
 </resources>

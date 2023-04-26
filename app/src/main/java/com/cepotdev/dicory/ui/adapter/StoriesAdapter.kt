@@ -2,24 +2,24 @@ package com.cepotdev.dicory.ui.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ItemStoriesBinding
+import com.cepotdev.dicory.logic.helper.formattedDate
 import com.cepotdev.dicory.logic.model.ListStoryItem
 import com.cepotdev.dicory.ui.activity.DetailActivity
 
 class StoriesAdapter(private val listStories: List<ListStoryItem>) :
     RecyclerView.Adapter<StoriesAdapter.ViewHolder>() {
-    class ViewHolder(private val binding: ItemStoriesBinding) :
+    class ViewHolder(binding: ItemStoriesBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val tvName: TextView = binding.tvName
-        val tvDecscription: TextView = binding.tvDescription
+        val tvDescription: TextView = binding.tvDescription
         val ivPhoto: ImageView = binding.ivStoriesPhoto
+        val tvDate: TextView = binding.tvDate
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,8 +28,10 @@ class StoriesAdapter(private val listStories: List<ListStoryItem>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val formattedDate = formattedDate(listStories[position].createdAt.toString())
         holder.tvName.text = listStories[position].name
-        holder.tvDecscription.text = listStories[position].description
+        holder.tvDate.text = formattedDate
+        holder.tvDescription.text = listStories[position].description
         Glide.with(holder.itemView.context)
             .load(listStories[position].photoUrl)
             .into(holder.ivPhoto)

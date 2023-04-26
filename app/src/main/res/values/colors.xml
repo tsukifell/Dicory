@@ -10,4 +10,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="white_smoke">#F5F5F5</color>
     <color name="yellowCusOne">#ECCF3A</color>
+    <color name="greyCustom">#808080</color>
 </resources>

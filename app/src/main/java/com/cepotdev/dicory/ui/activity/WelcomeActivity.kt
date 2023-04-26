@@ -21,7 +21,7 @@ class WelcomeActivity : AppCompatActivity() {
         inflater.inflate(R.menu.options_menu, menu)
         return true
     }
- 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu1 -> {

@@ -84,3 +84,10 @@ fun emailValidation(email: String): Boolean{
     val emailPattern = Patterns.EMAIL_ADDRESS
     return emailPattern.matcher(email).matches()
 }
+
+fun formattedDate(dateString: String): String {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+    dateFormat.timeZone = TimeZone.getTimeZone("UTC")
+    val date = dateFormat.parse(dateString)
+    return SimpleDateFormat("MMM dd, yyyy | hh:mm a", Locale.US).format(date as Date)
+}
