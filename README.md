@@ -5,7 +5,8 @@
 <h2> Update :notebook: </h2>
 > 15 April 2023 (Fetching stories data from API)
 <br>
-> 20 April 2023 (Posting stories)
+> 20 April 2023 (Posting stories) <br>
+> 26 April 2023 (Refactoring code as per reviewer comment, lack in giving error response) <br>
 > Coming Soon (On Submission 2) :no_entry:
 
 <h3> Current Features :clipboard: </h3>
