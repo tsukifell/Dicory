@@ -10,10 +10,10 @@ import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ActivityDetailBinding
 import com.cepotdev.dicory.logic.model.DetailStoriesResponse
 import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
-import com.cepotdev.dicory.ui.viewmodel.ViewModelFactory
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
+    private lateinit var authViewModel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,9 +21,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val keyStories = intent.getStringExtra("key_stories")
-
-        val viewModelFactory = ViewModelFactory(this.applicationContext)
-        val authViewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
+        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
 
         supportActionBar?.apply {
             title = getString(R.string.detail_title)

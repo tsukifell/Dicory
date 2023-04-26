@@ -13,10 +13,10 @@ import com.cepotdev.dicory.databinding.ActivityRegisterBinding
 import com.cepotdev.dicory.logic.helper.emailValidation
 import com.cepotdev.dicory.logic.model.UserRequest
 import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
-import com.cepotdev.dicory.ui.viewmodel.ViewModelFactory
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
+    private lateinit var authViewModel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,9 +27,7 @@ class RegisterActivity : AppCompatActivity() {
 
         playAnimation()
 
-        val viewModelFactory = ViewModelFactory(this.applicationContext)
-        val authViewModel =
-            ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
+        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
 
         authViewModel.isRegisterLoading.observe(this) {
             showLoading(it)

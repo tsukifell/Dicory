@@ -13,10 +13,10 @@ import com.cepotdev.dicory.databinding.ActivityLoginBinding
 import com.cepotdev.dicory.logic.helper.emailValidation
 import com.cepotdev.dicory.logic.model.LoginRequest
 import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
-import com.cepotdev.dicory.ui.viewmodel.ViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var authViewModel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +26,7 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         playAnimation()
-
-        val viewModelFactory = ViewModelFactory(this.applicationContext)
-        val authViewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
+        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
 
         authViewModel.loginResponse.observe(this) { loginResponse ->
             if (loginResponse.error) {

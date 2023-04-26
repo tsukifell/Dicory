@@ -20,7 +20,6 @@ import com.cepotdev.dicory.logic.helper.reduceFileImage
 import com.cepotdev.dicory.logic.helper.rotateFile
 import com.cepotdev.dicory.logic.helper.uriToFile
 import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
-import com.cepotdev.dicory.ui.viewmodel.ViewModelFactory
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -31,6 +30,7 @@ import java.io.File
 class PostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPostBinding
     private var getFile: File? = null
+    private lateinit var authViewModel: AuthViewModel
 
     companion object {
         const val CAMERA_X_RESULT = 200
@@ -66,8 +66,7 @@ class PostActivity : AppCompatActivity() {
         binding = ActivityPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModelFactory = ViewModelFactory(this.applicationContext)
-        val authViewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
+        val authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
 
         supportActionBar?.apply {
             title = getString(R.string.post_title)

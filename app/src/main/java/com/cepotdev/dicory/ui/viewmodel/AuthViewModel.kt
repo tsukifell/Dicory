@@ -1,7 +1,9 @@
 package com.cepotdev.dicory.ui.viewmodel
 
+import android.app.Application
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AuthViewModel(private val context: Context) : ViewModel() {
+class AuthViewModel(application: Application) : AndroidViewModel(application) {
     private val _loginResponse = MutableLiveData<LoginResponse>()
     val loginResponse: LiveData<LoginResponse> = _loginResponse
 
@@ -57,7 +59,7 @@ class AuthViewModel(private val context: Context) : ViewModel() {
 
     fun userLogin(loginRequest: LoginRequest) {
         _isLoginLoading.value = true
-        apiConfig.getApiService(context).userLogin(loginRequest)
+        apiConfig.getApiService(getApplication()).userLogin(loginRequest)
             .enqueue(object : Callback<LoginResponse> {
                 override fun onResponse(
                     call: Call<LoginResponse>,
@@ -67,7 +69,7 @@ class AuthViewModel(private val context: Context) : ViewModel() {
                     if (response.isSuccessful && response.body() != null) {
                         _loginResponse.postValue(response.body())
                         response.body()?.loginResult?.token?.let {
-                            SessionManager(context).saveAuthToken(it)
+                            SessionManager(getApplication()).saveAuthToken(it)
                         }
                     } else {
                         _loginResponse.postValue(
@@ -88,7 +90,7 @@ class AuthViewModel(private val context: Context) : ViewModel() {
 
     fun showStories() {
         _isMainLoading.value = true
-        apiConfig.getApiService(context).getAllStories()
+        apiConfig.getApiService(getApplication()).getAllStories()
             .enqueue(object : Callback<StoriesResponse> {
                 override fun onResponse(
                     call: Call<StoriesResponse>,
@@ -112,7 +114,7 @@ class AuthViewModel(private val context: Context) : ViewModel() {
 
     fun getDetailStory(id: String) {
         _isDetailLoading.value = true
-        apiConfig.getApiService(context).getDetailStories(id)
+        apiConfig.getApiService(getApplication()).getDetailStories(id)
             .enqueue(object : Callback<DetailStoriesResponse> {
                 override fun onResponse(
                     call: Call<DetailStoriesResponse>,
@@ -138,7 +140,7 @@ class AuthViewModel(private val context: Context) : ViewModel() {
 
     fun userRegister(userData: UserRequest) {
         _isRegisterLoading.value = true
-        apiConfig.getApiService(context).userRegister(userData)
+        apiConfig.getApiService(getApplication()).userRegister(userData)
             .enqueue(object : Callback<UserResponse> {
                 override fun onResponse(
                     call: Call<UserResponse>,
@@ -166,7 +168,7 @@ class AuthViewModel(private val context: Context) : ViewModel() {
 
     fun postStories(imageFile: MultipartBody.Part, description: RequestBody) {
         _isPostLoading.value = true
-        apiConfig.getApiService(context).postStories(imageFile, description)
+        apiConfig.getApiService(getApplication()).postStories(imageFile, description)
             .enqueue(object : Callback<PostingStoriesResponse> {
                 override fun onResponse(
                     call: Call<PostingStoriesResponse>,
