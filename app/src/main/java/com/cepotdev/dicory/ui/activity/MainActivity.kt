@@ -29,6 +29,12 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu1 -> {
+                val i = Intent(this, MapsActivity::class.java)
+                startActivity(i)
+                true
+            }
+
+            R.id.menu2 -> {
                 val sessionManager = SessionManager(this)
                 sessionManager.removeAuthToken()
                 val i = Intent(this, WelcomeActivity::class.java)

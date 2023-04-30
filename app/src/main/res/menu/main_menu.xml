@@ -4,6 +4,11 @@
     <group android:menuCategory="container">
         <item
             android:id="@+id/menu1"
+            android:icon="@drawable/ic_baseline_location_on"
+            android:title="@string/maps"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/menu2"
             android:icon="@drawable/ic_baseline_logout"
             android:title="@string/logout"
             app:showAsAction="ifRoom" />

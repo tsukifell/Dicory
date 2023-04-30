@@ -42,5 +42,6 @@
     <string name="detail_title">Detail Cerita</string>
     <string name="post_title">Ringkasan Cerita</string>
     <string name="desc_minimal">Deskripsi harus di isi minimal 1 huruf!</string>
-    <string name="uploaded_date">Tanngal update cerita</string>
+    <string name="uploaded_date">Tanggal update cerita</string>
+    <string name="maps">Peta</string>
 </resources>
