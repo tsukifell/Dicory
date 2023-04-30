@@ -42,6 +42,7 @@
     <string name="post_title">Story Overview</string>
     <string name="desc_minimal">Description should at least be 1 character!</string>
     <string name="uploaded_date">Date of uploaded stories</string>
-<!--    <string name="title_activity_maps">MapsActivity</string>-->
     <string name="maps">Maps</string>
+    <string name="lan">Stories Latitude</string>
+    <string name="lon">Stories Longitude</string>
 </resources>

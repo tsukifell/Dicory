@@ -44,4 +44,6 @@
     <string name="desc_minimal">Deskripsi harus di isi minimal 1 huruf!</string>
     <string name="uploaded_date">Tanggal update cerita</string>
     <string name="maps">Peta</string>
+    <string name="lan">Latitude cerita</string>
+    <string name="lon">Longitude cerita</string>
 </resources>

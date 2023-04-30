@@ -20,6 +20,8 @@ class StoriesAdapter(private val listStories: List<ListStoryItem>) :
         val tvDescription: TextView = binding.tvDescription
         val ivPhoto: ImageView = binding.ivStoriesPhoto
         val tvDate: TextView = binding.tvDate
+        val tvLat: TextView = binding.tvLat
+        val tvLon: TextView = binding.tvLon
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,6 +33,8 @@ class StoriesAdapter(private val listStories: List<ListStoryItem>) :
         val formattedDate = formattedDate(listStories[position].createdAt.toString())
         holder.tvName.text = listStories[position].name
         holder.tvDate.text = formattedDate
+        holder.tvLat.text = listStories[position].lat.toString()
+        holder.tvLon.text = listStories[position].lon.toString()
         holder.tvDescription.text = listStories[position].description
         Glide.with(holder.itemView.context)
             .load(listStories[position].photoUrl)

@@ -38,9 +38,27 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_name"
             android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:maxLines="2"
             android:text="@string/uploaded_date"
+            android:textColor="@color/greyCustom"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_lat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_date"
+            android:text="@string/lan"
+            android:textColor="@color/greyCustom"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_lon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_date"
+            android:layout_marginStart="10dp"
+            android:layout_toRightOf="@id/tv_lat"
+            android:text="@string/lon"
             android:textColor="@color/greyCustom"
             android:textSize="10sp" />
 
@@ -48,7 +66,7 @@
             android:id="@+id/tv_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_date"
+            android:layout_below="@id/tv_lat"
             android:layout_marginTop="12dp"
             android:ellipsize="end"
             android:maxLines="2"
