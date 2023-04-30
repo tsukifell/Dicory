@@ -16,6 +16,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _storyItem = MutableLiveData<List<ListStoryItem>>()
     val storyItem: LiveData<List<ListStoryItem>> = _storyItem
 
+    private val _storyLocationItem = MutableLiveData<List<ListStoryItem>>()
+    val storyLocationItem: LiveData<List<ListStoryItem>> = _storyLocationItem
+
     private val _isMainLoading = MutableLiveData<Boolean>()
     val isMainLoading: LiveData<Boolean> = _isMainLoading
 
@@ -52,4 +55,28 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
             })
     }
+
+    fun showLocationStories() {
+        apiConfig.getApiService(getApplication()).getStoryLocation(1)
+            .enqueue(object : Callback<StoriesResponse> {
+                override fun onResponse(
+                    call: Call<StoriesResponse>,
+                    response: Response<StoriesResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        @Suppress("UNCHECKED_CAST")
+                        _storyLocationItem.value = response.body()?.listStory as List<ListStoryItem>
+                    } else {
+                        Log.d(TAG, "onFailure: ${response.message()} ")
+                    }
+                    Log.d("MapsActivity", "showLocationStories() called")
+                }
+
+                override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
+                    Log.e(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+    }
+
 }

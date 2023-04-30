@@ -29,11 +29,11 @@ data class ListStoryItem(
     val description: String? = null,
 
     @SerializedName("lon")
-    val lon: Any? = null,
+    val lon: Double? = null,
 
     @SerializedName("id")
     val id: String? = null,
 
     @SerializedName("lat")
-    val lat: Any? = null
+    val lat: Double? = null
 )

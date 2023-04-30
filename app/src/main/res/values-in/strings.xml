@@ -46,4 +46,6 @@
     <string name="maps">Peta</string>
     <string name="lan">Latitude cerita</string>
     <string name="lon">Longitude cerita</string>
+    <string name="failed_parse">Gagal melakukan parse!</string>
+    <string name="style_not_found">Tidak dapat menemukan custom style, Error: </string>
 </resources>
