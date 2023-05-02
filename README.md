@@ -7,7 +7,8 @@
 <br>
 > 20 April 2023 (Posting stories) <br>
 > 26 April 2023 (Refactoring code as per reviewer comment, lack in giving error response) <br>
-> Coming Soon (On Submission 2) :no_entry:
+> Coming Soon (On Submission 2) :no_entry: <br>
+> 30 April 2023 (Geo location)
 
 <h3> Current Features :clipboard: </h3>
 > Login, Register (Currently support 6'1" smartphone) <br>
@@ -15,4 +16,5 @@
 > Fetching detailed stories from the API <br>
 > Uploading stories to the API <br>
 > Swipe refresh to fetch more stories <br>
-> Authentication token for usefulness
+> Authentication token for usefulness <br>
+> Geo Location for fetching user Location
