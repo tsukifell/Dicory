@@ -3,18 +3,15 @@ package com.cepotdev.dicory.ui.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ActivityMainBinding
 import com.cepotdev.dicory.logic.helper.SessionManager
-import com.cepotdev.dicory.logic.model.ListStoryItem
+import com.cepotdev.dicory.ui.adapter.LoadingStateAdapter
 import com.cepotdev.dicory.ui.adapter.StoriesAdapter
 import com.cepotdev.dicory.ui.viewmodel.MainViewModel
 import com.cepotdev.dicory.ui.viewmodel.MainViewModelFactory
@@ -71,10 +68,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getData(){
+    private fun getData() {
         val adapter = StoriesAdapter()
-        binding.rvStories.adapter = adapter
-        mainViewModel.stories.observe(this){
+        binding.rvStories.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            }
+        )
+        mainViewModel.stories.observe(this) {
             adapter.submitData(lifecycle, it)
         }
     }

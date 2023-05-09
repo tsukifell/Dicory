@@ -47,4 +47,5 @@
     <string name="lon">Stories Longitude</string>
     <string name="failed_parse">Failed to Parse!</string>
     <string name="style_not_found">Unable to find custom style, Error: </string>
+    <string name="retry">Retry...</string>
 </resources>
