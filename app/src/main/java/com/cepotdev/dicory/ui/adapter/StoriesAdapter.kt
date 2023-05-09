@@ -3,6 +3,7 @@ package com.cepotdev.dicory.ui.adapter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ import com.cepotdev.dicory.databinding.ItemStoriesBinding
 import com.cepotdev.dicory.logic.model.ListStoryItem
 
 class StoriesAdapter :
-    ListAdapter<ListStoryItem, StoriesAdapter.MyViewHolder>(DIFF_CALLBACK) {
+    PagingDataAdapter<ListStoryItem, StoriesAdapter.MyViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemStoriesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         Log.d("StoriesAdapter", "onCreateViewHolder called")

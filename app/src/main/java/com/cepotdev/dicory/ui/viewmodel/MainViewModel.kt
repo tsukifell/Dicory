@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.cepotdev.dicory.logic.api.ApiConfig
 import com.cepotdev.dicory.logic.data.StoriesRepository
 import com.cepotdev.dicory.logic.model.ListStoryItem
@@ -25,15 +27,8 @@ class MainViewModel(private val storiesRepository: StoriesRepository) : ViewMode
         private const val TAG = "MainViewModel"
     }
 
-    fun getTheStories(){
-        viewModelScope.launch {
-            storiesRepository.getAllStories()
-        }
-    }
-
-    fun catchTheStories(): LiveData<List<ListStoryItem?>>{
-        return storiesRepository.stories
-    }
+    val stories: LiveData<PagingData<ListStoryItem>> =
+        storiesRepository.getAllStories().cachedIn(viewModelScope)
 
 //    fun showLocationStories() {
 //        apiConfig.getApiService(getApplication()).getStoryLocation(1)

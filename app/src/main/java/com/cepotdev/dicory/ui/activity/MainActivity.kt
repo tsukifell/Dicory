@@ -74,9 +74,8 @@ class MainActivity : AppCompatActivity() {
     private fun getData(){
         val adapter = StoriesAdapter()
         binding.rvStories.adapter = adapter
-        mainViewModel.getTheStories()
-        mainViewModel.catchTheStories().observe(this){
-            adapter.submitList(it)
+        mainViewModel.stories.observe(this){
+            adapter.submitData(lifecycle, it)
         }
     }
 
