@@ -1,15 +1,16 @@
 package com.cepotdev.dicory.ui.adapter
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cepotdev.dicory.databinding.ItemStoriesBinding
 import com.cepotdev.dicory.logic.model.ListStoryItem
+import com.cepotdev.dicory.ui.activity.DetailActivity
 
 class StoriesAdapter :
     PagingDataAdapter<ListStoryItem, StoriesAdapter.MyViewHolder>(DIFF_CALLBACK) {
@@ -23,7 +24,11 @@ class StoriesAdapter :
         val data = getItem(position)
         if (data != null) {
             holder.bind(data)
-            Log.d("StoriesAdapter", "onBindViewHolder called for position $position")
+            holder.itemView.setOnClickListener {
+                val intentDetail = Intent(holder.itemView.context, DetailActivity::class.java)
+                intentDetail.putExtra("key_stories", data.id)
+                holder.itemView.context.startActivity(intentDetail)
+            }
         }
     }
 
@@ -38,7 +43,6 @@ class StoriesAdapter :
             Glide.with(itemView.context)
                 .load(data.photoUrl)
                 .into(binding.ivStoriesPhoto)
-            Log.d("StoriesAdapter", "bind called for item with ID ${data.id}")
         }
     }
 

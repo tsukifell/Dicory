@@ -9,6 +9,7 @@ import android.graphics.Matrix
 import android.net.Uri
 import android.os.Environment
 import android.util.Patterns
+import androidx.exifinterface.media.ExifInterface
 import com.cepotdev.dicory.R
 import java.io.*
 import java.text.SimpleDateFormat
@@ -71,16 +72,32 @@ fun createFile(application: Application): File {
 fun rotateFile(file: File, isBackCamera: Boolean = false) {
     val matrix = Matrix()
     val bitmap = BitmapFactory.decodeFile(file.path)
-    val rotation = if (isBackCamera) 90f else -90f
-    matrix.postRotate(rotation)
+
+    val exif = ExifInterface(file.path)
+
+    val rotationAngle = when (exif.getAttributeInt(
+        ExifInterface.TAG_ORIENTATION,
+        ExifInterface.ORIENTATION_NORMAL
+    )) {
+        ExifInterface.ORIENTATION_ROTATE_90 -> 90f
+        ExifInterface.ORIENTATION_ROTATE_180 -> 180f
+        ExifInterface.ORIENTATION_ROTATE_270 -> 270f
+        else -> 0f
+    }
+
+    val finalRotationAngle = if (isBackCamera) rotationAngle else -rotationAngle
+
+    matrix.postRotate(finalRotationAngle)
+
     if (!isBackCamera) {
         matrix.postScale(-1f, 1f, bitmap.width / 2f, bitmap.height / 2f)
     }
+
     val result = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
     result.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(file))
 }
 
-fun emailValidation(email: String): Boolean{
+fun emailValidation(email: String): Boolean {
     val emailPattern = Patterns.EMAIL_ADDRESS
     return emailPattern.matcher(email).matches()
 }
