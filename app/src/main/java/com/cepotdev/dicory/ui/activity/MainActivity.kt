@@ -7,6 +7,8 @@ import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cepotdev.dicory.R
@@ -15,10 +17,13 @@ import com.cepotdev.dicory.logic.helper.SessionManager
 import com.cepotdev.dicory.logic.model.ListStoryItem
 import com.cepotdev.dicory.ui.adapter.StoriesAdapter
 import com.cepotdev.dicory.ui.viewmodel.MainViewModel
+import com.cepotdev.dicory.ui.viewmodel.MainViewModelFactory
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel: MainViewModel by viewModels {
+        MainViewModelFactory(this)
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
@@ -29,8 +34,9 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu1 -> {
-                val i = Intent(this, MapsActivity::class.java)
-                startActivity(i)
+//                val i = Intent(this, MapsActivity::class.java)
+//                startActivity(i)
+                Toast.makeText(this, "Maps pressed!", Toast.LENGTH_SHORT).show()
                 true
             }
 
@@ -52,50 +58,26 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-
         supportActionBar?.apply {
             title = getString(R.string.main_title)
         }
 
-        val layoutManager = LinearLayoutManager(this)
-        binding.rvStories.layoutManager = layoutManager
-
-        binding.sflMain.setOnRefreshListener {
-            Handler(mainLooper).postDelayed({
-                binding.sflMain.isRefreshing = false
-                mainViewModel.showStories()
-            }, 4000)
-        }
-
-        if (intent.getBooleanExtra("upload_success", false)) {
-            mainViewModel.storyItem.observe(this) {
-                showListAdapter(it)
-            }
-        }
-
-        mainViewModel.storyItem.observe(this) {
-            showListAdapter(it)
-        }
+        binding.rvStories.layoutManager = LinearLayoutManager(this)
+        getData()
 
         binding.fabAdd.setOnClickListener {
             val i = Intent(this, PostActivity::class.java)
             startActivity(i)
         }
-
-        mainViewModel.isMainLoading.observe(this) {
-            showLoading(it)
-        }
-
     }
 
-    private fun showListAdapter(listStories: List<ListStoryItem>) {
-        val adapter = StoriesAdapter(listStories)
+    private fun getData(){
+        val adapter = StoriesAdapter()
         binding.rvStories.adapter = adapter
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.pbMain.visibility = if (isLoading) View.VISIBLE else View.GONE
+        mainViewModel.getTheStories()
+        mainViewModel.catchTheStories().observe(this){
+            adapter.submitList(it)
+        }
     }
 
     @Suppress("DEPRECATION")

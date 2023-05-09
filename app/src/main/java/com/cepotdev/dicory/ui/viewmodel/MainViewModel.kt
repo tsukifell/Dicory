@@ -1,18 +1,15 @@
 package com.cepotdev.dicory.ui.viewmodel
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.cepotdev.dicory.logic.api.ApiConfig
+import com.cepotdev.dicory.logic.data.StoriesRepository
 import com.cepotdev.dicory.logic.model.ListStoryItem
-import com.cepotdev.dicory.logic.model.StoriesResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.launch
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(private val storiesRepository: StoriesRepository) : ViewModel() {
     private val _storyItem = MutableLiveData<List<ListStoryItem>>()
     val storyItem: LiveData<List<ListStoryItem>> = _storyItem
 
@@ -28,55 +25,37 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         private const val TAG = "MainViewModel"
     }
 
-    init {
-        showStories()
+    fun getTheStories(){
+        viewModelScope.launch {
+            storiesRepository.getAllStories()
+        }
     }
 
-    fun showStories() {
-        _isMainLoading.value = true
-        apiConfig.getApiService(getApplication()).getAllStories()
-            .enqueue(object : Callback<StoriesResponse> {
-                override fun onResponse(
-                    call: Call<StoriesResponse>,
-                    response: Response<StoriesResponse>
-                ) {
-                    _isMainLoading.value = false
-                    if (response.isSuccessful) {
-                        @Suppress("UNCHECKED_CAST")
-                        _storyItem.value = response.body()?.listStory as List<ListStoryItem>
-                    } else {
-                        Log.d(TAG, "onFailure: ${response.message()} ")
-                    }
-                }
-
-                override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
-                    Log.e(TAG, "onFailure: ${t.message}")
-                }
-
-            })
+    fun catchTheStories(): LiveData<List<ListStoryItem?>>{
+        return storiesRepository.stories
     }
 
-    fun showLocationStories() {
-        apiConfig.getApiService(getApplication()).getStoryLocation(1)
-            .enqueue(object : Callback<StoriesResponse> {
-                override fun onResponse(
-                    call: Call<StoriesResponse>,
-                    response: Response<StoriesResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        @Suppress("UNCHECKED_CAST")
-                        _storyLocationItem.value = response.body()?.listStory as List<ListStoryItem>
-                    } else {
-                        Log.d(TAG, "onFailure: ${response.message()} ")
-                    }
-                    Log.d("MapsActivity", "showLocationStories() called")
-                }
-
-                override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
-                    Log.e(TAG, "onFailure: ${t.message}")
-                }
-
-            })
-    }
+//    fun showLocationStories() {
+//        apiConfig.getApiService(getApplication()).getStoryLocation(1)
+//            .enqueue(object : Callback<StoriesResponse> {
+//                override fun onResponse(
+//                    call: Call<StoriesResponse>,
+//                    response: Response<StoriesResponse>
+//                ) {
+//                    if (response.isSuccessful) {
+//                        @Suppress("UNCHECKED_CAST")
+//                        _storyLocationItem.value = response.body()?.listStory as List<ListStoryItem>
+//                    } else {
+//                        Log.d(TAG, "onFailure: ${response.message()} ")
+//                    }
+//                    Log.d("MapsActivity", "showLocationStories() called")
+//                }
+//
+//                override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
+//                    Log.e(TAG, "onFailure: ${t.message}")
+//                }
+//
+//            })
+//    }
 
 }

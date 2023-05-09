@@ -1,51 +1,58 @@
 package com.cepotdev.dicory.ui.adapter
 
-import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cepotdev.dicory.databinding.ItemStoriesBinding
-import com.cepotdev.dicory.logic.helper.formattedDate
 import com.cepotdev.dicory.logic.model.ListStoryItem
-import com.cepotdev.dicory.ui.activity.DetailActivity
 
-class StoriesAdapter(private val listStories: List<ListStoryItem>) :
-    RecyclerView.Adapter<StoriesAdapter.ViewHolder>() {
-    class ViewHolder(binding: ItemStoriesBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        val tvName: TextView = binding.tvName
-        val tvDescription: TextView = binding.tvDescription
-        val ivPhoto: ImageView = binding.ivStoriesPhoto
-        val tvDate: TextView = binding.tvDate
-        val tvLat: TextView = binding.tvLat
-        val tvLon: TextView = binding.tvLon
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+class StoriesAdapter :
+    ListAdapter<ListStoryItem, StoriesAdapter.MyViewHolder>(DIFF_CALLBACK) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemStoriesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        Log.d("StoriesAdapter", "onCreateViewHolder called")
+        return MyViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val formattedDate = formattedDate(listStories[position].createdAt.toString())
-        holder.tvName.text = listStories[position].name
-        holder.tvDate.text = formattedDate
-        holder.tvLat.text = listStories[position].lat.toString()
-        holder.tvLon.text = listStories[position].lon.toString()
-        holder.tvDescription.text = listStories[position].description
-        Glide.with(holder.itemView.context)
-            .load(listStories[position].photoUrl)
-            .into(holder.ivPhoto)
-
-        holder.itemView.setOnClickListener {
-            val intentDetail = Intent(holder.itemView.context, DetailActivity::class.java)
-            intentDetail.putExtra("key_stories", listStories[position].id)
-            holder.itemView.context.startActivity(intentDetail)
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val data = getItem(position)
+        if (data != null) {
+            holder.bind(data)
+            Log.d("StoriesAdapter", "onBindViewHolder called for position $position")
         }
     }
 
-    override fun getItemCount(): Int = listStories.size
+    class MyViewHolder(private val binding: ItemStoriesBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: ListStoryItem) {
+            binding.tvName.text = data.name
+            binding.tvDate.text = data.createdAt
+            binding.tvLat.text = data.lat.toString()
+            binding.tvLon.text = data.lon.toString()
+            binding.tvDescription.text = data.description
+            Glide.with(itemView.context)
+                .load(data.photoUrl)
+                .into(binding.ivStoriesPhoto)
+            Log.d("StoriesAdapter", "bind called for item with ID ${data.id}")
+        }
+    }
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListStoryItem>() {
+            override fun areItemsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(
+                oldItem: ListStoryItem,
+                newItem: ListStoryItem
+            ): Boolean {
+                return oldItem.id == newItem.id
+            }
+        }
+    }
 }
