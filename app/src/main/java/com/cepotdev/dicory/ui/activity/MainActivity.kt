@@ -31,8 +31,8 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu1 -> {
-//                val i = Intent(this, MapsActivity::class.java)
-//                startActivity(i)
+                val i = Intent(this, MapsActivity::class.java)
+                startActivity(i)
                 Toast.makeText(this, "Maps pressed!", Toast.LENGTH_SHORT).show()
                 true
             }
