@@ -9,11 +9,10 @@ import com.cepotdev.dicory.logic.api.ApiService
 import com.cepotdev.dicory.logic.model.ListStoryItem
 
 class StoriesRepository(private val apiService: ApiService) {
-
     fun getAllStories(): LiveData<PagingData<ListStoryItem>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 33
+                pageSize = 3
             ),
             pagingSourceFactory = {
                 StoriesPagingSource(apiService)

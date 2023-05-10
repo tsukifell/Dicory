@@ -102,17 +102,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 boundsBuilder.include(latLng)
             }
 
+            if (storiesLocation.isNotEmpty()) {
+                val bounds: LatLngBounds = boundsBuilder.build()
+                mMap.animateCamera(
+                    CameraUpdateFactory.newLatLngBounds(
+                        bounds,
+                        resources.displayMetrics.widthPixels,
+                        resources.displayMetrics.heightPixels,
+                        300
+                    )
+                )
+            }
         }
-
-        val bounds: LatLngBounds = boundsBuilder.build()
-        mMap.animateCamera(
-            CameraUpdateFactory.newLatLngBounds(
-                bounds,
-                resources.displayMetrics.widthPixels,
-                resources.displayMetrics.heightPixels,
-                300
-            )
-        )
     }
 
     private fun getAddressName(lat: Double, lon: Double): String? {

@@ -5,8 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import android.view.View
 import androidx.activity.viewModels
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ActivityMainBinding
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private val mainViewModel: MainViewModel by viewModels {
         MainViewModelFactory(this)
     }
+    private val storiesAdapter: StoriesAdapter by lazy { StoriesAdapter() }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
@@ -33,7 +35,6 @@ class MainActivity : AppCompatActivity() {
             R.id.menu1 -> {
                 val i = Intent(this, MapsActivity::class.java)
                 startActivity(i)
-                Toast.makeText(this, "Maps pressed!", Toast.LENGTH_SHORT).show()
                 true
             }
 
@@ -60,23 +61,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.rvStories.layoutManager = LinearLayoutManager(this)
-        getData()
+
+        setupRecyclerView()
 
         binding.fabAdd.setOnClickListener {
             val i = Intent(this, PostActivity::class.java)
             startActivity(i)
-        }
-    }
-
-    private fun getData() {
-        val adapter = StoriesAdapter()
-        binding.rvStories.adapter = adapter.withLoadStateFooter(
-            footer = LoadingStateAdapter {
-                adapter.retry()
-            }
-        )
-        mainViewModel.stories.observe(this) {
-            adapter.submitData(lifecycle, it)
         }
     }
 
@@ -87,6 +77,25 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         } else {
             finishAffinity()
+        }
+    }
+
+    private fun setupRecyclerView() {
+        binding.rvStories.adapter = storiesAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter { storiesAdapter.retry() }
+        )
+
+        mainViewModel.isMainLoading.observe(this) { isLoading ->
+            binding.pbMain.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+
+        storiesAdapter.addLoadStateListener { loadState ->
+            val isMainLoading = loadState.refresh is LoadState.Loading
+            mainViewModel.setMainLoading(isMainLoading)
+        }
+
+        mainViewModel.stories.observe(this) { pagingData ->
+            storiesAdapter.submitData(lifecycle, pagingData)
         }
     }
 }
