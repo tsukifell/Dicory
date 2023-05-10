@@ -8,6 +8,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ItemStoriesBinding
 import com.cepotdev.dicory.logic.model.ListStoryItem
 import com.cepotdev.dicory.ui.activity.DetailActivity
@@ -42,6 +43,7 @@ class StoriesAdapter :
             binding.tvDescription.text = data.description
             Glide.with(itemView.context)
                 .load(data.photoUrl)
+                .placeholder(R.drawable.ic_baseline_image)
                 .into(binding.ivStoriesPhoto)
         }
     }
