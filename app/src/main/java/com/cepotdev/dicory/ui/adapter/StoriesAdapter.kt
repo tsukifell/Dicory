@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ItemStoriesBinding
+import com.cepotdev.dicory.logic.helper.formattedDate
 import com.cepotdev.dicory.logic.model.ListStoryItem
 import com.cepotdev.dicory.ui.activity.DetailActivity
 
@@ -37,7 +38,7 @@ class StoriesAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ListStoryItem) {
             binding.tvName.text = data.name
-            binding.tvDate.text = data.createdAt
+            binding.tvDate.text = formattedDate(data.createdAt.toString())
             binding.tvLat.text = data.lat.toString()
             binding.tvLon.text = data.lon.toString()
             binding.tvDescription.text = data.description

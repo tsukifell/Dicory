@@ -7,11 +7,11 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\User\.android\avd\Gopix_Geming.avd" />
+            <value value="C:\Users\User\.android\avd\Nexus_6P_API_28.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2023-04-30T06:14:39.608839800Z" />
+    <timeTargetWasSelectedWithDropDown value="2023-05-10T15:40:54.061360Z" />
   </component>
 </project>

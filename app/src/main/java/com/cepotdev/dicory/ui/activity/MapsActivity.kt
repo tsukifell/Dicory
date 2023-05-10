@@ -116,6 +116,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun getAddressName(lat: Double, lon: Double): String? {
         var addressName: String? = null
         val geocoder = Geocoder(this@MapsActivity, Locale.getDefault())
