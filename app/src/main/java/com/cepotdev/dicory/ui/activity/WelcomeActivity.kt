@@ -38,7 +38,7 @@ class WelcomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val sessionManager = SessionManager(this)
-        if(!sessionManager.fetchAuthToken().isNullOrEmpty()){
+        if (!sessionManager.fetchAuthToken().isNullOrEmpty()) {
             val i = Intent(this, MainActivity::class.java)
             startActivity(i)
             finish()

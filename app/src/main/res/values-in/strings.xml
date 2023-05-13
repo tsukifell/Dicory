@@ -42,4 +42,11 @@
     <string name="detail_title">Detail Cerita</string>
     <string name="post_title">Ringkasan Cerita</string>
     <string name="desc_minimal">Deskripsi harus di isi minimal 1 huruf!</string>
+    <string name="uploaded_date">Tanggal update cerita</string>
+    <string name="maps">Peta</string>
+    <string name="lan">Latitude cerita</string>
+    <string name="lon">Longitude cerita</string>
+    <string name="failed_parse">Gagal melakukan parse!</string>
+    <string name="style_not_found">Tidak dapat menemukan custom style, Error: </string>
+    <string name="retry">Coba lagi...</string>
 </resources>

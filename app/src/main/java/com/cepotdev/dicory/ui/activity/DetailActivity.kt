@@ -9,35 +9,33 @@ import com.bumptech.glide.Glide
 import com.cepotdev.dicory.R
 import com.cepotdev.dicory.databinding.ActivityDetailBinding
 import com.cepotdev.dicory.logic.model.DetailStoriesResponse
-import com.cepotdev.dicory.ui.viewmodel.AuthViewModel
-import com.cepotdev.dicory.ui.viewmodel.ViewModelFactory
+import com.cepotdev.dicory.ui.viewmodel.DetailViewModel
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
+    private lateinit var detailViewModel: DetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val keyStories = intent.getStringExtra("key_stories")
-
-        val viewModelFactory = ViewModelFactory(this.applicationContext)
-        val authViewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
+        val keyStories = intent.getStringExtra(KEY_STORIES)
+        detailViewModel = ViewModelProvider(this)[DetailViewModel::class.java]
 
         supportActionBar?.apply {
             title = getString(R.string.detail_title)
         }
 
         if (keyStories != null) {
-            authViewModel.getDetailStory(keyStories)
+            detailViewModel.getDetailStory(keyStories)
         }
 
-        authViewModel.story.observe(this) {
+        detailViewModel.story.observe(this) {
             setDetail(it)
         }
 
-        authViewModel.isDetailLoading.observe(this) {
+        detailViewModel.isDetailLoading.observe(this) {
             showLoading(it)
         }
     }
@@ -55,5 +53,9 @@ class DetailActivity : AppCompatActivity() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.pbDetailStories.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    companion object {
+        const val KEY_STORIES = "key_stories"
     }
 }

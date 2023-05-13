@@ -41,4 +41,11 @@
     <string name="detail_title">Story Detail</string>
     <string name="post_title">Story Overview</string>
     <string name="desc_minimal">Description should at least be 1 character!</string>
+    <string name="uploaded_date">Date of uploaded stories</string>
+    <string name="maps">Maps</string>
+    <string name="lan">Stories Latitude</string>
+    <string name="lon">Stories Longitude</string>
+    <string name="failed_parse">Failed to Parse!</string>
+    <string name="style_not_found">Unable to find custom style, Error: </string>
+    <string name="retry">Retry...</string>
 </resources>
