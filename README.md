@@ -1,5 +1,5 @@
 <h1> Dicory </h1>
-<p> Dicoding's story app submission for "Belajar Pengembangan Aplikasi Android Intermediate" </p>
+<p> Dicoding's story app submission for "Belajar Pengembangan Aplikasi Android Intermediate" using MVVM architecture. </p>
 <p> Reviewer rating:  :star2::star2::star2::star2: </p>
 
 
