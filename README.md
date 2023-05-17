@@ -8,7 +8,7 @@
 <br>
 > 20 April 2023 (Posting stories) <br>
 > 26 April 2023 (Refactoring code as per reviewer comment, lack in giving error response) <br>
-> 10 April 2023 (Adding Paging3 and Maps function)
+> 10 May 2023 (Adding Paging3 and Maps function)
 
 <h3> Current Features :clipboard: </h3>
 > Login, Register (Currently support 6'1" smartphone) <br>
